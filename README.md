@@ -4,6 +4,8 @@
 [![Python](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/)
 [![Platform](https://img.shields.io/badge/platform-windows-0078D6)](https://www.microsoft.com/windows)
 
+**English** · [Русский](docs/README-ru.md) · [Deutsch](docs/README-de.md) · [Español](docs/README-es.md) · [日本語](docs/README-ja.md)
+
 Desktop utility that watches the clipboard after a single LMB click in
 Chrome (Copy button in web chats, e.g. DeepSeek) and appends the text to
 the .docx / .md / .txt file of the selected project.
@@ -223,3 +225,7 @@ If you did edit it manually, skip undo and copy the text again.
 ## 📄 License
 
 Copyright (©) 2026, Vladimir Baykov. Licensed under the [MIT License](LICENSE).
+
+---
+
+[🌐 Back to English README](README.md)
