@@ -1,0 +1,33 @@
+name: Bug Report
+description: Report a problem with ChatClipper
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: "Thanks for reporting a bug! Please fill out the form below."
+  - type: textarea
+    id: description
+    attributes:
+      label: Bug Description
+      description: Briefly describe what went wrong.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to Reproduce
+      description: How can we reproduce this bug?
+    validations:
+      required: true
+  - type: dropdown
+    id: os
+    attributes:
+      label: Operating System
+      options:
+        - Windows 10
+        - Windows 11
+        - Linux (WSL)
+        - macOS
+    validations:
+      required: true
