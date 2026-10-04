@@ -1,12 +1,31 @@
 # Copyright (©) 2026, Vladimir Baykov. All rights reserved.
 # ChatClipper
 
+[![License](https://img.shields.io/badge/license-MIT-yellow)](LICENSE)
+[![Python](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/)
+[![Platform](https://img.shields.io/badge/platform-windows-0078D6)](https://www.microsoft.com/windows)
+
 Desktop utility that watches the clipboard after a single LMB click in
 Chrome (Copy button in web chats, e.g. DeepSeek) and appends the text to
-the .docx / .md / .txt file of the selected project. Works on Windows;
-Linux / WSL / macOS support is experimental.
+the .docx / .md / .txt file of the selected project.
+Works on Windows; Linux / WSL / macOS support is experimental.
 
-## Features
+---
+
+## 📋 About
+
+ChatClipper is a lightweight utility that automatically saves your chats
+with AI assistants (DeepSeek, ChatGPT and similar) into a single project
+file. No more manual copy-paste — the program does it for you.
+
+- Watches the clipboard and detects Copy in web chats.
+- Appends the copied text to the project file (.docx / .md / .txt).
+- Supports multiple projects with one main project.
+- Works in the background — lives in the system tray.
+
+---
+
+## ✨ Features
 
 - Clipboard watcher on LMB click in Chrome
 - Append text to project files: docx, md, txt
@@ -30,46 +49,59 @@ Linux / WSL / macOS support is experimental.
 - Tray enabled (off by default; Windows only)
 - Single instance guard (mutex / file lock)
 - i18n: English, Russian, German, Spanish, Japanese
-  - Auto-detect from OS locale on first run
-  - Add a new language by dropping locales/<code>.json with "lang.name"
+- Auto-detect from OS locale on first run
+- Add a new language by dropping `locales/<code>.json` with `"lang.name"`
 - Window icon: chatclipper-light.ico
 
-## Requirements
+---
 
+## ⚙️ Requirements
 - Windows 10/11 (Linux / macOS — experimental)
 - Python 3.10+
 - LibreOffice or MS Word for editing .docx
 - Chrome as clipboard source
-- Optional: Pandoc in PATH for Markdown -> docx
+- Optional: Pandoc in PATH for Markdown → docx
+---
 
-## Install
+## 🚀 Install
 
 ### Recommended: uv virtual environment
-
-    git clone https://github.com/<user>/ChatClipper.git
-    cd ChatClipper
+```
+    git clone https://github.com/vldbkov/chat-clipper.git
+    cd chat-clipper
     uv venv
     uv pip install -r requirements.txt
     uv run python main.py
-
+```
 ### Alternative: pip
-
-    git clone https://github.com/<user>/ChatClipper.git
-    cd ChatClipper
+```
+    git clone https://github.com/vldbkov/chat-clipper.git
+    cd chat-clipper
     python -m venv .venv
     .venv\Scripts\activate
     pip install -r requirements.txt
     python main.py
-
+```
 ### Easiest for end users: Windows installer
 
 Download `chatclipper-setup.exe` from the latest release and run it.
 No Python installation required.
-
 After install, the tray icon appears (Windows).
 
-## Project layout
+---
 
+## 🎮 Usage
+
+1. Click the ChatClipper tray icon → **Settings**.
+2. Add a project: name, folder, file name. Example: "DeepSeek" → "deepseek-chat.docx".
+3. Set one project as main — writes go there by default.
+4. Open a chat with an AI, copy the reply (Ctrl+C or the Copy button).
+5. ChatClipper appends the text to the file. Open it in Word to see the result.
+
+---
+
+## 📁 Project layout
+```
     main.py                  — entry point, chooses tray vs GUI mode
     app_state.py             — shared AppState, single instance
     tray_process.py          — tray (pystray), menu, handlers
@@ -103,9 +135,11 @@ After install, the tray icon appears (Windows).
     locales/                 — en.json, ru.json, de.json, es.json, ja.json
     pytest.ini               — testpaths = tests
     tests/                   — unit tests for core layer
+```
+---
 
-## Data files (not committed)
-
+## 🗂 Data files (not committed)
+```
     config.json              — settings and projects
     hashes.json              — ring of last CRC32 values
     last_buffers.json        — last / prev writes for undo
@@ -114,23 +148,29 @@ After install, the tray icon appears (Windows).
     ipc_token                — shared IPC token (mode 0600 on POSIX)
     chatclipper.sock         — Unix socket endpoint (POSIX only)
     chatclipper-light.ico    — app / tray icon
+```
+---
 
-## Project structure
+## 🧩 Project structure
 
 Each project has a name, a folder, a file name and a format
-(docx / md / txt). Default file name is <ProjectName>-chat.<fmt>.
+(docx / md / txt). Default file name is `<ProjectName>-chat.<fmt>`.
 One project is the main one — writes go there by default.
 The main project can be switched from the popup, from the status popup,
 or from the settings window.
 
-## Important: buffered writes
+---
+
+## ⚠️ Important: buffered writes
 
 After a copy, the target file is not updated immediately: changes are
 buffered and flushed every ~5 seconds or when the app exits. If the
 file is open in Word / LibreOffice, it will not reflect the new content
 on the fly — close and reopen it to see new entries.
 
-## Important: do not edit the .docx by hand
+---
+
+## ⚠️ Important: do not edit the .docx by hand
 
 ChatClipper remembers how many paragraphs it added on the last write,
 and on undo removes exactly that many. If you manually add, delete or
@@ -144,17 +184,43 @@ Possible outcomes:
 Rule: if you need undo — do not touch the .docx between write and undo.
 If you did edit it manually, skip undo and copy the text again.
 
-## Platforms
+---
 
-- Windows 10/11: tray icon, autostart via registry, IPC over named pipe.
+## 🌍 Platforms
 
-## Adding a new language
+- **Windows 10/11** — tray icon, autostart via registry, IPC over named pipe.
+- **Linux / WSL / macOS** — experimental: Tk control panel, IPC over Unix socket.
 
-1. Create locales/<code>.json with the same keys as locales/en.json.
-2. Include "lang.name": "<NativeName>" — the settings dropdown and the
+---
+
+## 🌐 Adding a new language
+
+1. Create `locales/<code>.json` with the same keys as `locales/en.json`.
+2. Include `"lang.name": "<NativeName>"` — the settings dropdown and the
    OS-locale autodetect read it from the file.
 3. No code or config changes needed.
+---
 
-## License
+## 🐛 Troubleshooting
+
+| Problem | Solution |
+|---------|----------|
+| Text is not saved | Check that Chrome is the active window when you press Copy |
+| File is not updated | Wait ~5 s, or close and reopen the file (buffered writes) |
+| Tray icon not visible | Check Windows tray settings; ensure ChatClipper is running |
+| Undo removed wrong text | Do not edit the .docx manually between write and undo |
+| Language not detected | Set language manually in Settings |
+
+---
+
+## 🤝 Contributing
+
+- [Report a bug](https://github.com/vldbkov/chat-clipper/issues/new)
+- [Suggest a feature](https://github.com/vldbkov/chat-clipper/issues/new)
+- Star the repo on GitHub ⭐
+
+---
+
+## 📄 License
 
 MIT — see LICENSE.
