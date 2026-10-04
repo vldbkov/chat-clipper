@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>ChatClipper — Benutzerhandbuch</title>
+<style>
+body { background: #ffffff; color: #111111; font-family: "Segoe UI", Arial, sans-serif; font-size: 16px; line-height: 1.55; max-width: 900px; margin: 24px auto; padding: 0 16px; }
+h1 { font-size: 28px; margin-top: 0; }
+h2 { font-size: 22px; margin-top: 32px; border-bottom: 1px solid #cccccc; padding-bottom: 4px; }
+h3 { font-size: 18px; margin-top: 24px; }
+ul, ol { padding-left: 24px; }
+li { margin: 4px 0; }
+code { background: #f4f4f4; padding: 1px 4px; border-radius: 3px; font-family: Consolas, monospace; }
+img { max-width: 100%; height: auto; border: 1px solid #dddddd; margin: 12px 0; }
+hr { border: none; border-top: 1px solid #dddddd; margin: 24px 0; }
+.small { color: #666666; font-size: 14px; }
+</style>
+</head>
+<body>
+
+<h1>ChatClipper — Benutzerhandbuch</h1>
+
+<p class="small">Copyright (©) 2026, Vladimir Baykov. All rights reserved.</p>
+
+<p>ChatClipper ist ein kleines Windows-Programm, mit dem Sie Ihre Chats mit KI-Assistenten (DeepSeek, ChatGPT, Qwen, GLM und ähnliche) in einer einzigen Word-Datei festhalten können. Kein manuelles Kopieren und Einfügen mehr — das Programm erledigt das für Sie.</p>
+
+<h2>Vorteile</h2>
+<ul>
+  <li>Sie speichern <b>nur das, was Sie brauchen</b>: einzelne Antworten, wichtige Fragmente, Codebeispiele — nicht den gesamten Gesprächsverlauf.</li>
+  <li>Kein manuelles Kopieren und Einfügen: ein Klick auf "Kopieren" im Browser — und der Text steht in Ihrer Word-Datei.</li>
+  <li>Jedes Projekt ist eine eigene Datei — so enthält ein Dokument nur ein Thema.</li>
+  <li>Formatierung bleibt erhalten: Überschriften, Listen, Fett, Code.</li>
+  <li>Läuft leise im Hintergrund — bremst das System nicht aus.</li>
+  <li>Oberfläche in 5 Sprachen verfügbar.</li>
+</ul>
+
+<h2>Für wen ist das gedacht</h2>
+<p>Für alle, die viel mit KI-Chats arbeiten und den Verlauf behalten möchten: Entwickler, Analysten, Autoren, Forscher, Studierende.</p>
+
+<h2>Installation</h2>
+<p>Der einfachste Weg ist der Installer.</p>
+<ol>
+  <li>Laden Sie <code>chatclipper-setup.exe</code> von der letzten Release-Seite auf GitHub herunter.</li>
+  <li>Doppelklicken Sie darauf und folgen Sie den Anweisungen.</li>
+  <li>Nach der Installation erscheint in der rechten unteren Ecke das <b>Bedienfeld von ChatClipper</b> — ein kleines Fenster mit Schaltflächen.</li>
+</ol>
+<p>Python oder andere Programme sind nicht nötig — alles ist enthalten.</p>
+
+<h2>Erster Start</h2>
+<p>Nach dem ersten Start sehen Sie das <b>Bedienfeld</b> — das ist das Hauptfenster des Programms.</p>
+
+<img src="panel-window.png" alt="ChatClipper Bedienfeld">
+
+<p>Das Bedienfeld hat fünf Schaltflächen:</p>
+<ul>
+  <li><b>Status</b> — Statusfenster anzeigen (aktuelles Hauptprojekt und Liste aktiver Projekte).</li>
+  <li><b>Einstellungen</b> — Einstellungsfenster öffnen.</li>
+  <li><b>Rückgängig</b> — letzten Eintrag rückgängig machen und in ein anderes Projekt verschieben.</li>
+  <li><b>Start / Pause</b> — Zwischenablage-Überwachung ein- oder ausschalten.</li>
+  <li><b>Beenden</b> — ChatClipper schließen. Einzelklick beendet, Doppelklick startet neu.</li>
+</ul>
+<p>Das Bedienfeld lässt sich mit der Maus <b>verschieben</b>. Die Position wird gespeichert und beim nächsten Start wiederverwendet.</p>
+
+<h2>Einstellungsfenster</h2>
+<p>Wird über die Schaltfläche <b>Einstellungen</b> geöffnet. Hier werden Projekte und Verhalten festgelegt.</p>
+
+<img src="settings-window.png" alt="Einstellungsfenster">
+
+<p>Oben sehen Sie die Liste Ihrer Projekte: Name, Ordner und Datei.</p>
+
+<p>Unter der Liste befinden sich die Projekt-Schaltflächen:</p>
+<ul>
+  <li><b>Hinzufügen</b> — neues Projekt anlegen. Ein Dialog fragt nach Name, Ordner und Dateiname. Das Format (Word, Markdown, reiner Text) ist wählbar.</li>
+  <li><b>Bearbeiten</b> — ausgewähltes Projekt ändern.</li>
+  <li><b>Löschen</b> — Projekt entfernen.</li>
+  <li><b>Als Haupt setzen</b> — das ausgewählte Projekt zum Hauptprojekt machen. Einträge gehen standardmäßig dorthin.</li>
+  <li><b>Aktiv umschalten</b> — Projekt ein- oder ausschalten. Inaktive Projekte erscheinen nicht im Auswahlfenster beim Kopieren.</li>
+</ul>
+
+<p>Die Zeile unter der Liste zeigt das Hauptprojekt und die aktiven Projekte.</p>
+
+<p>Danach folgen die Optionen:</p>
+<ul>
+  <li><b>Min. Textlänge (Zeichen)</b> — Mindestlänge des kopierten Textes. Zu kurze Fragmente (standardmäßig weniger als 35 Zeichen) werden ignoriert.</li>
+  <li><b>Popup-Zeit (Sek.)</b> — wie lange die Projektauswahl angezeigt wird, bevor sie sich automatisch schließt.</li>
+  <li><b>Fenstertransparenz (%)</b> — Transparenz der Projektauswahl.</li>
+  <li><b>Autostart</b> — ChatClipper zusammen mit Windows starten.</li>
+  <li><b>Tray anzeigen</b> — stattdessen ein Tray-Symbol verwenden (siehe Abschnitt "Tray" unten).</li>
+  <li><b>Pandoc</b> — Pandoc verwenden, um Markdown in Word umzuwandeln (falls installiert).</li>
+  <li><b>Quelle</b> — Quelle des Kopierens: Chrome oder eine andere Anwendung.</li>
+  <li><b>Ton</b> — Ticken im Wartemodus. Klicken Sie auf "...", um einen Ton auszuwählen.</li>
+  <li><b>Sprache</b> — Sprache der Oberfläche.</li>
+</ul>
+<p>Unten befinden sich <b>Speichern</b> und <b>Abbrechen</b>. Wenn Sie etwas geändert und das Fenster geschlossen haben, fragt ChatClipper, ob gespeichert werden soll.</p>
+
+<h2>Statusfenster</h2>
+<p>Wird über <b>Status</b> geöffnet (oder beim Start automatisch angezeigt). Zeigt den aktuellen Zustand.</p>
+
+<img src="status-window.png" alt="Statusfenster">
+
+<ul>
+  <li>Der Titel ist der Name des Hauptprojekts, in das geschrieben wird.</li>
+  <li>Die Liste der aktiven Projekte — maximal 9 Einträge.</li>
+  <li>Ein Klick auf einen Eintrag <b>macht ihn zum Hauptprojekt</b> — alle weiteren Einträge gehen dorthin.</li>
+  <li>Wenn das Programm pausiert ist, erscheint ein rotes <b>PAUSE</b>-Siegel über dem Fenster.</li>
+</ul>
+<p>Das Fenster ist verschiebbar. Wird es nicht berührt, schließt es sich nach einigen Sekunden automatisch.</p>
+
+<h2>Bedienung</h2>
+<ol>
+  <li>Öffnen Sie die <b>Einstellungen</b> und legen Sie mindestens ein Projekt an: Name, Ordner, Datei. Beispiel: Projekt "DeepSeek", Datei "deepseek-chat.docx".</li>
+  <li>Machen Sie es zum Hauptprojekt (Als Haupt setzen).</li>
+  <li>Öffnen Sie den KI-Chat in Chrome.</li>
+  <li>Markieren Sie den gewünschten Ausschnitt und drücken Sie <b>Strg+C</b> (oder "Kopieren" in der Chat-Oberfläche).</li>
+  <li>Nach einer Sekunde erscheint die Projektauswahl — klicken Sie darauf oder warten Sie (das Hauptprojekt wird verwendet).</li>
+  <li>Öffnen Sie die Word-Datei — der Text steht bereits darin (Verzögerung etwa 5 Sekunden).</li>
+</ol>
+
+<h2>Sprache der Oberfläche</h2>
+<p>Standardmäßig ist die Oberfläche auf Englisch. Um sie auf Russisch, Deutsch, Spanisch oder Japanisch umzustellen:</p>
+<ol>
+  <li><b>Einstellungen → Sprache</b> → gewünschte Sprache wählen.</li>
+  <li>Klicken Sie auf <b>Speichern</b>. Ein Dialog fragt nach einem Neustart — bestätigen.</li>
+  <li>Nach dem Neustart ist die Oberfläche in der gewählten Sprache.</li>
+</ol>
+<p>Beim ersten Start versucht ChatClipper, die Windows-Sprache zu übernehmen. Ist sie nicht verfügbar, wird Englisch verwendet.</p>
+
+<h2>Tray</h2>
+<p>Wenn Sie ChatClipper lieber im System-Tray (neben der Uhr) statt auf dem Bedienfeld haben möchten:</p>
+<ol>
+  <li><b>Einstellungen → Tray anzeigen</b> → Häkchen setzen.</li>
+  <li>Auf <b>Speichern</b> klicken und den Neustart bestätigen.</li>
+  <li>Nach dem Neustart erscheint statt des Bedienfelds ein Tray-Symbol.</li>
+</ol>
+
+<img src="tray-window.png" alt="Tray-Symbol">
+
+<p>Rechtsklick auf das Symbol öffnet das Menü: Status, Einstellungen, Rückgängig, Pause, Neustart, Beenden.</p>
+<p>Um zum Bedienfeld zurückzukehren — Häkchen bei <b>Tray anzeigen</b> in den Einstellungen entfernen.</p>
+
+<h2>Gut zu wissen</h2>
+<ul>
+  <li>Einträge werden mit etwa 5 Sekunden Verzögerung geschrieben — aus Performance-Gründen.</li>
+  <li>Wenn die Word-Datei in einem Editor geöffnet ist, erscheinen neue Inhalte nicht sofort — Datei schließen und neu öffnen.</li>
+  <li>Bearbeiten Sie die Datei nicht von Hand zwischen Schreiben und Rückgängig machen — sonst entfernt "Rückgängig" die falschen Absätze.</li>
+  <li>Das Programm verbindet sich nicht mit dem Internet und sendet keine Daten.</li>
+</ul>
+
+<h2>Häufige Fragen</h2>
+
+<p><b>Muss ich etwas bezahlen?</b><br>
+Nein. ChatClipper ist kostenlos und steht unter der MIT-Lizenz.</p>
+
+<p><b>Wo werden die Notizen gespeichert?</b><br>
+Dort, wo Sie es beim Anlegen des Projekts angegeben haben. Standardmäßig im Projektordner.</p>
+
+<p><b>Kann ich mehrere Chats gleichzeitig führen?</b><br>
+Ja. Jedes Projekt ist eine separate Datei. Das Umschalten erfolgt in den Einstellungen, im Statusfenster oder über die Auswahl beim Kopieren.</p>
+
+<p><b>Was, wenn ich die Datei versehentlich gelöscht habe?</b><br>
+Legen Sie das Projekt erneut an — mit demselben Dateinamen und Ordner; ChatClipper schreibt weiter hinein.</p>
+
+<p><b>Wie deinstalliere ich das Programm?</b><br>
+Über "Apps &amp; Features" in Windows. Einstellungen und Projektdateien werden separat manuell entfernt — sie liegen außerhalb des Programmordners.</p>
+
+<p><b>Ist der Hintergrundbetrieb sicher?</b><br>
+Ja. ChatClipper verbindet sich nicht mit dem Internet, sendet keine Daten und liest außer der Zwischenablage im Moment des Kopierens nichts.</p>
+
+<hr>
+<p class="small">ChatClipper — <code>docs/manual-de.html</code></p>
+
+</body>
+</html>

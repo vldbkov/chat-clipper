@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>ChatClipper — user guide</title>
+<style>
+body { background: #ffffff; color: #111111; font-family: "Segoe UI", Arial, sans-serif; font-size: 16px; line-height: 1.55; max-width: 900px; margin: 24px auto; padding: 0 16px; }
+h1 { font-size: 28px; margin-top: 0; }
+h2 { font-size: 22px; margin-top: 32px; border-bottom: 1px solid #cccccc; padding-bottom: 4px; }
+h3 { font-size: 18px; margin-top: 24px; }
+ul, ol { padding-left: 24px; }
+li { margin: 4px 0; }
+code { background: #f4f4f4; padding: 1px 4px; border-radius: 3px; font-family: Consolas, monospace; }
+img { max-width: 100%; height: auto; border: 1px solid #dddddd; margin: 12px 0; }
+hr { border: none; border-top: 1px solid #dddddd; margin: 24px 0; }
+.small { color: #666666; font-size: 14px; }
+</style>
+</head>
+<body>
+
+<h1>ChatClipper — user guide</h1>
+
+<p class="small">Copyright (©) 2026, Vladimir Baykov. All rights reserved.</p>
+
+<p>ChatClipper is a small Windows utility that helps you keep a record of your chats with AI assistants (DeepSeek, ChatGPT, Qwen, GLM and similar) in a single tidy Word file. No more manual copy-paste — the app does it for you.</p>
+
+<h2>Advantages</h2>
+<ul>
+  <li>You save <b>only what you need</b>: selected replies, key fragments, code snippets — not the whole dialogue tree.</li>
+  <li>No manual copy-paste: one click on "Copy" in the browser and the text is already in your Word file.</li>
+  <li>Each project is a separate file, so one document holds just one topic.</li>
+  <li>Formatting is preserved: headings, lists, bold, code.</li>
+  <li>Runs quietly in the background — does not slow the system down.</li>
+  <li>Interface available in 5 languages.</li>
+</ul>
+
+<h2>Who it is for</h2>
+<p>Anyone who works with AI chat tools often and wants to keep history: developers, analysts, writers, researchers, students.</p>
+
+<h2>Installation</h2>
+<p>The easiest way is to run the installer.</p>
+<ol>
+  <li>Download <code>chatclipper-setup.exe</code> from the latest release page on GitHub.</li>
+  <li>Double-click it and follow the installer prompts.</li>
+  <li>After installation, the <b>ChatClipper control panel</b> — a small window with buttons — appears in the bottom-right corner of the screen.</li>
+</ol>
+<p>No Python or other software is required — everything is bundled.</p>
+
+<h2>First launch</h2>
+<p>After installation and launch you will see the <b>control panel</b> — this is the main window of the app by default.</p>
+
+<img src="panel-window.png" alt="ChatClipper control panel">
+
+<p>The panel has five buttons:</p>
+<ul>
+  <li><b>Status</b> — show the status window (current main project and list of active projects).</li>
+  <li><b>Settings</b> — open the settings window.</li>
+  <li><b>Undo</b> — undo the last write and move it to another project.</li>
+  <li><b>Start / Pause</b> — enable or pause clipboard tracking.</li>
+  <li><b>Exit</b> — close ChatClipper. Single click exits, double click restarts.</li>
+</ul>
+<p>The panel can be <b>dragged</b> with the mouse anywhere on the screen. The app remembers its position and opens there next time.</p>
+
+<h2>Settings window</h2>
+<p>Opened by the <b>Settings</b> button. Here you define projects and behaviour.</p>
+
+<img src="settings-window.png" alt="Settings window">
+
+<p>At the top is the list of your projects. For each you see: name, folder and file.</p>
+
+<p>Below the list are the project buttons:</p>
+<ul>
+  <li><b>Add</b> — add a new project. A dialog opens where you enter name, folder and file name. You can also pick the format (Word, Markdown, plain text).</li>
+  <li><b>Edit</b> — change the selected project.</li>
+  <li><b>Delete</b> — remove a project.</li>
+  <li><b>Set as main</b> — make the selected project the main one. Writes go there by default.</li>
+  <li><b>Toggle active</b> — enable or disable a project. Inactive projects are not shown in the copy popup.</li>
+</ul>
+
+<p>The line below the list shows the main and active projects.</p>
+
+<p>Then come the options:</p>
+<ul>
+  <li><b>Min. text length (chars)</b> — minimum length of copied text. Too-short fragments (by default less than 35 characters) are ignored.</li>
+  <li><b>Popup time (sec)</b> — how long the project picker stays on screen before auto-close.</li>
+  <li><b>Window transparency (%)</b> — transparency of the project picker.</li>
+  <li><b>Autostart</b> — start ChatClipper together with Windows.</li>
+  <li><b>Show tray</b> — switch to a tray icon instead of the panel (see the "Tray" section below).</li>
+  <li><b>Pandoc</b> — use Pandoc to convert Markdown to Word (if installed).</li>
+  <li><b>Source</b> — copy source: Chrome or another app.</li>
+  <li><b>Sound</b> — ticking sound that plays while waiting for a copy. Click "..." to choose from available sounds.</li>
+  <li><b>Language</b> — interface language.</li>
+</ul>
+<p>At the bottom are <b>Save</b> and <b>Cancel</b>. If you changed something and closed the window, ChatClipper asks whether to save.</p>
+
+<h2>Status window</h2>
+<p>Opened by the <b>Status</b> button (or shown automatically at startup). It shows the current state.</p>
+
+<img src="status-window.png" alt="Status window">
+
+<ul>
+  <li>The title is the name of the main project where writes go.</li>
+  <li>The list of active projects — at most 9 items.</li>
+  <li>Clicking any of them <b>makes it the main project</b> — all subsequent writes go there.</li>
+  <li>When the app is paused, a red <b>PAUSE</b> stamp appears over the window.</li>
+</ul>
+<p>The window can be dragged. If left alone, it closes automatically after a few seconds.</p>
+
+<h2>How to use</h2>
+<ol>
+  <li>Open <b>Settings</b> and add at least one project: name, folder, file. For example, project "DeepSeek", file "deepseek-chat.docx".</li>
+  <li>Mark it as main (Set as main).</li>
+  <li>Open the AI chat in Chrome.</li>
+  <li>Select the fragment and press <b>Ctrl+C</b> (or click "Copy" in the chat UI).</li>
+  <li>A popup appears in a second with the project choice — click the one you want, or let it auto-close (the main project is used).</li>
+  <li>Open the Word file — the text is there (writes are delayed by about 5 seconds).</li>
+</ol>
+
+<h2>Interface language</h2>
+<p>By default the interface is in English. To switch to Russian, German, Spanish or Japanese:</p>
+<ol>
+  <li><b>Settings → Language</b> → pick the language.</li>
+  <li>Click <b>Save</b>. A dialog asks to restart the app — confirm.</li>
+  <li>After restart the interface is in the chosen language.</li>
+</ol>
+<p>On first launch ChatClipper tries to match the Windows locale. If the language is not available, English is used.</p>
+
+<h2>Tray</h2>
+<p>If you prefer to keep ChatClipper in the system tray (near the clock) instead of the panel:</p>
+<ol>
+  <li><b>Settings → Show tray</b> → check the box.</li>
+  <li>Click <b>Save</b> and confirm the restart.</li>
+  <li>After restart a tray icon appears instead of the panel.</li>
+</ol>
+
+<img src="tray-window.png" alt="Tray icon">
+
+<p>Right-click the icon to open the menu: Status, Settings, Undo, Pause, Restart, Exit.</p>
+<p>To go back to the panel — uncheck <b>Show tray</b> in settings.</p>
+
+<h2>Good to know</h2>
+<ul>
+  <li>Writes are delayed by about 5 seconds — for performance reasons.</li>
+  <li>If the Word file is open in an editor, new content will not show up on the fly — close and reopen the file.</li>
+  <li>Do not edit the file by hand between a write and an undo — otherwise Undo will remove the wrong paragraphs.</li>
+  <li>The app does not connect to the internet and sends no data.</li>
+</ul>
+
+<h2>FAQ</h2>
+
+<p><b>Do I need to pay for anything?</b><br>
+No. ChatClipper is free and distributed under the MIT license.</p>
+
+<p><b>Where are the notes stored?</b><br>
+Wherever you specified when creating the project. By default — in the project folder.</p>
+
+<p><b>Can I keep several chats at once?</b><br>
+Yes. Each project is a separate file. Switch projects in settings, in the status window, or via the popup.</p>
+
+<p><b>What if I accidentally deleted the file?</b><br>
+Create the project again — use the same file name and folder, and ChatClipper will continue writing to it.</p>
+
+<p><b>How do I uninstall?</b><br>
+Via Windows "Apps &amp; features". Your settings and project files are removed separately, by hand — they live outside the app folder.</p>
+
+<p><b>Is it safe to run in the background?</b><br>
+Yes. ChatClipper does not connect to the internet, sends no data anywhere and reads nothing but the clipboard at the moment of a copy.</p>
+
+<hr>
+<p class="small">ChatClipper — <code>docs/manual-en.html</code></p>
+
+</body>
+</html>
