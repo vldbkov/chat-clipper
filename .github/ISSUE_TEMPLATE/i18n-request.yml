@@ -1,0 +1,26 @@
+name: New Language Request
+description: Request support for a new interface language in ChatClipper
+title: "[i18n]: "
+labels: ["i18n"]
+body:
+  - type: input
+    id: language
+    attributes:
+      label: Language Name
+      description: Native name of the language (e.g., Français, Deutsch)
+    validations:
+      required: true
+  - type: input
+    id: code
+    attributes:
+      label: Language Code
+      description: ISO 639-1 code (e.g., fr, de, ja)
+    validations:
+      required: true
+  - type: textarea
+    id: translation
+    attributes:
+      label: Translation File
+      description: Paste the contents of locales/<code>.json here, or attach the file.
+    validations:
+      required: true
