@@ -1,4 +1,3 @@
-# Copyright (©) 2026, Vladimir Baykov. All rights reserved.
 # ChatClipper
 
 [![License](https://img.shields.io/badge/license-MIT-yellow)](LICENSE)
@@ -217,10 +216,10 @@ If you did edit it manually, skip undo and copy the text again.
 
 - [Report a bug](https://github.com/vldbkov/chat-clipper/issues/new)
 - [Suggest a feature](https://github.com/vldbkov/chat-clipper/issues/new)
-- Star the repo on GitHub ⭐
+- [Star the repo on GitHub](https://github.com/vldbkov/chat-clipper) ⭐
 
 ---
 
 ## 📄 License
 
-MIT — see LICENSE.
+Copyright (©) 2026, Vladimir Baykov. Licensed under the [MIT License](LICENSE).
