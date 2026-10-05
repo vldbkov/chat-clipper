@@ -24,6 +24,11 @@ erledigt das für Sie.
 - Hängt den kopierten Text an die Projektdatei an (.docx / .md / .txt).
 - Unterstützt mehrere Projekte mit einem Hauptprojekt.
 - Läuft im Hintergrund — lebt im System-Tray.
+- Beim ersten Start wird ein Projekt Default in `~/ChatClipper` angelegt,
+  mit einer leeren Datei, die bereits eine Überschrift enthält — sofort
+  einsatzbereit.
+- Beim Warten auf einen Kopiervorgang ist ein Tickgeräusch zu hören —
+  das Programm läuft und ist bereit.
 
 ---
 
@@ -94,11 +99,24 @@ Nach der Installation erscheint das Tray-Symbol (Windows).
 
 ## 🎮 Verwendung
 
-1. Klicken Sie auf das ChatClipper-Tray-Symbol → **Einstellungen**.
-2. Fügen Sie ein Projekt hinzu: Name, Ordner, Dateiname. Beispiel: „DeepSeek“ → „deepseek-chat.docx“.
-3. Legen Sie ein Projekt als Hauptprojekt fest — Schreibvorgänge gehen standardmäßig dorthin.
-4. Öffnen Sie einen Chat mit einer KI, kopieren Sie die Antwort (Strg+C oder die Schaltfläche „Kopieren“).
-5. ChatClipper hängt den Text an die Datei an. Öffnen Sie sie in Word, um das Ergebnis zu sehen.
+Beim ersten Start legt ChatClipper automatisch ein Projekt Default im
+Ordner `~/ChatClipper` (Benutzer-Home) mit einer leeren Word-Datei an,
+die bereits eine Überschrift enthält. Keine Konfiguration nötig —
+sofort loslegen.
+
+1. Öffnen Sie einen KI-Chat (DeepSeek, ChatGPT, Qwen, GLM und ähnliche) in Chrome.
+2. Kopieren Sie die Antwort auf eine von zwei Arten:
+   - Klicken Sie die Schaltfläche **Kopieren** in der Chat-Oberfläche
+     (empfohlen — so bleibt die HTML-Formatierung erhalten), oder
+   - markieren Sie den Text und drücken Sie **Strg+C**.
+3. Nach einer Sekunde erscheint die Projektauswahl — klicken Sie die
+   gewünschte an oder warten Sie auf das automatische Schließen (das
+   Hauptprojekt wird verwendet).
+4. Öffnen Sie die Projektdatei in Word — der Text steht bereits darin
+   (Schreibvorgänge mit ~5 Sekunden Verzögerung).
+5. Weitere Projekte: ChatClipper-Bedienfeld → **Einstellungen** → **Hinzufügen**.
+   Legen Sie ein Projekt als Hauptprojekt fest — dorthin gehen die
+   Schreibvorgänge standardmäßig.
 
 ---
 
@@ -206,7 +224,8 @@ Wenn Sie sie manuell bearbeitet haben, überspringen Sie Undo und kopieren Sie d
 
 | Problem | Lösung |
 |---------|----------|
-| Text wird nicht gespeichert | Prüfen Sie, ob Chrome beim Kopieren das aktive Fenster ist |
+| Text wird nicht gespeichert | Klicken Sie die Schaltfläche **Kopieren** im Chat oder markieren Sie den Text und drücken Sie **Strg+C**; Chrome muss das aktive Fenster sein |
+| Tickgeräusch stört | Deaktivieren Sie es unter Einstellungen → Sound, oder wählen Sie eine leisere .wav |
 | Datei wird nicht aktualisiert | Warten Sie ~5 s, oder schließen und öffnen Sie die Datei (gepufferte Schreibvorgänge) |
 | Tray-Symbol nicht sichtbar | Prüfen Sie die Windows-Tray-Einstellungen; stellen Sie sicher, dass ChatClipper läuft |
 | Undo hat falschen Text entfernt | Bearbeiten Sie die .docx zwischen Schreiben und Undo nicht manuell |

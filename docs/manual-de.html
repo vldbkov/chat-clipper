@@ -51,6 +51,16 @@ hr { border: none; border-top: 1px solid #dddddd; margin: 24px 0; }
 
 <img src="panel-window.png" alt="ChatClipper Bedienfeld">
 
+<p>Beim allerersten Start legt ChatClipper automatisch ein Projekt Default
+im Ordner <code>~/ChatClipper</code> (Benutzer-Home) mit einer leeren
+Word-Datei an, die bereits eine Überschrift enthält. Sie können sofort
+mit dem Kopieren beginnen — keine Konfiguration nötig.</p>
+
+<p>Außerdem hören Sie ein leises <b>Ticken einer Uhr</b>. Das bedeutet,
+dass das Programm läuft und darauf wartet, dass Sie etwas aus einem Chat
+kopieren. Der Ton verstummt bei Pause und kehrt beim nächsten Start
+zurück.</p>
+
 <p>Das Bedienfeld hat fünf Schaltflächen:</p>
 <ul>
   <li><b>Status</b> — Statusfenster anzeigen (aktuelles Hauptprojekt und Liste aktiver Projekte).</li>
@@ -108,12 +118,17 @@ hr { border: none; border-top: 1px solid #dddddd; margin: 24px 0; }
 
 <h2>Bedienung</h2>
 <ol>
-  <li>Öffnen Sie die <b>Einstellungen</b> und legen Sie mindestens ein Projekt an: Name, Ordner, Datei. Beispiel: Projekt "DeepSeek", Datei "deepseek-chat.docx".</li>
-  <li>Machen Sie es zum Hauptprojekt (Als Haupt setzen).</li>
-  <li>Öffnen Sie den KI-Chat in Chrome.</li>
-  <li>Markieren Sie den gewünschten Ausschnitt und drücken Sie <b>Strg+C</b> (oder "Kopieren" in der Chat-Oberfläche).</li>
+  <li>Öffnen Sie einen KI-Chat (DeepSeek, ChatGPT, Qwen, GLM und ähnliche) in Chrome.</li>
+  <li>Kopieren Sie die Antwort auf eine von zwei Arten:
+    <ul>
+      <li>Klicken Sie die Schaltfläche <b>Kopieren</b> in der Chat-Oberfläche
+          (empfohlen — so bleibt die HTML-Formatierung erhalten), oder</li>
+      <li>markieren Sie den Text und drücken Sie <b>Strg+C</b>.</li>
+    </ul>
+  </li>
   <li>Nach einer Sekunde erscheint die Projektauswahl — klicken Sie darauf oder warten Sie (das Hauptprojekt wird verwendet).</li>
   <li>Öffnen Sie die Word-Datei — der Text steht bereits darin (Verzögerung etwa 5 Sekunden).</li>
+  <li>Weitere Projekte: <b>Einstellungen → Hinzufügen</b>, Name, Ordner und Datei angeben. Ein Projekt als Hauptprojekt festlegen (Als Haupt setzen) — dorthin gehen die Schreibvorgänge standardmäßig.</li>
 </ol>
 
 <h2>Sprache der Oberfläche</h2>
@@ -140,6 +155,9 @@ hr { border: none; border-top: 1px solid #dddddd; margin: 24px 0; }
 
 <h2>Gut zu wissen</h2>
 <ul>
+  <li>Das <b>Ticken</b> bedeutet, dass das Programm läuft und auf einen Kopiervorgang wartet. Abschalten: Einstellungen → Häkchen bei Sound entfernen.</li>
+  <li>Beim ersten Start werden automatisch ein Default-Projekt und eine leere
+      Datei mit Überschrift im Ordner <code>~/ChatClipper</code> angelegt.</li>
   <li>Einträge werden mit etwa 5 Sekunden Verzögerung geschrieben — aus Performance-Gründen.</li>
   <li>Wenn die Word-Datei in einem Editor geöffnet ist, erscheinen neue Inhalte nicht sofort — Datei schließen und neu öffnen.</li>
   <li>Bearbeiten Sie die Datei nicht von Hand zwischen Schreiben und Rückgängig machen — sonst entfernt "Rückgängig" die falschen Absätze.</li>

@@ -23,6 +23,10 @@ Se acabó el copiar y pegar manual: el programa lo hace por ti.
 - Añade el texto copiado al archivo del proyecto (.docx / .md / .txt).
 - Admite varios proyectos con un proyecto principal.
 - Funciona en segundo plano: vive en la bandeja del sistema.
+- En el primer inicio se crea un proyecto Default en `~/ChatClipper`
+  con un archivo vacío que ya contiene un encabezado — listo para usar.
+- Mientras espera una copia se oye un tic-tac — la app está en marcha
+  y lista.
 
 ---
 
@@ -93,11 +97,23 @@ Tras la instalación, aparece el icono de bandeja (Windows).
 
 ## 🎮 Uso
 
-1. Haz clic en el icono de bandeja de ChatClipper → **Configuración**.
-2. Añade un proyecto: nombre, carpeta, nombre de archivo. Ejemplo: "DeepSeek" → "deepseek-chat.docx".
-3. Establece un proyecto como principal: las escrituras van allí por defecto.
-4. Abre un chat con una IA, copia la respuesta (Ctrl+C o el botón Copiar).
-5. ChatClipper añade el texto al archivo. Ábrelo en Word para ver el resultado.
+En el primer inicio ChatClipper crea automáticamente un proyecto Default
+en `~/ChatClipper` (carpeta personal del usuario) con un archivo Word
+vacío que ya contiene un encabezado. No hace falta configurar nada —
+puedes empezar a copiar de inmediato.
+
+1. Abre un chat con IA (DeepSeek, ChatGPT, Qwen, GLM y similares) en Chrome.
+2. Copia la respuesta de una de dos formas:
+   - haz clic en el botón **Copiar** de la interfaz del chat (recomendado
+     — así se conserva el formato HTML), o
+   - selecciona el texto y pulsa **Ctrl+C** en el teclado.
+3. Aparece una ventana emergente en un segundo con la elección de proyecto:
+   haz clic en el que quieras o deja que se cierre automáticamente (se usa
+   el principal).
+4. Abre el archivo del proyecto en Word — el texto ya está allí (las
+   escrituras se retrasan unos 5 segundos).
+5. Para añadir más proyectos: panel de ChatClipper → **Configuración** → **Añadir**.
+   Marca uno como principal — las escrituras van allí por defecto.
 
 ---
 
@@ -206,7 +222,8 @@ Si lo editaste manualmente, omite deshacer y copia el texto de nuevo.
 
 | Problema | Solución |
 |---------|----------|
-| El texto no se guarda | Comprueba que Chrome sea la ventana activa al pulsar Copiar |
+| El texto no se guarda | Haz clic en el botón **Copiar** del chat o selecciona el texto y pulsa **Ctrl+C**; asegúrate de que Chrome sea la ventana activa |
+| Molesta el tic-tac | Desactívalo en Configuración → Sonido, o elige un .wav más silencioso |
 | El archivo no se actualiza | Espera ~5 s, o cierra y vuelve a abrir el archivo (escrituras en búfer) |
 | El icono de bandeja no se ve | Revisa la configuración de bandeja de Windows; asegúrate de que ChatClipper esté en ejecución |
 | Deshacer eliminó el texto incorrecto | No edites el .docx manualmente entre la escritura y el deshacer |

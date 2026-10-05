@@ -51,6 +51,15 @@ hr { border: none; border-top: 1px solid #dddddd; margin: 24px 0; }
 
 <img src="panel-window.png" alt="Panel de control de ChatClipper">
 
+<p>En el primer inicio ChatClipper crea automáticamente un proyecto
+Default en la carpeta <code>~/ChatClipper</code> (carpeta personal del
+usuario) con un archivo Word vacío que ya contiene un encabezado. Puedes
+empezar a copiar de inmediato — no hace falta configurar nada.</p>
+
+<p>También oirás un suave <b>tic-tac de reloj</b>. Significa que la
+app está en marcha y espera a que copies algo de un chat. El sonido se
+detiene en pausa y se reanuda al volver a iniciar.</p>
+
 <p>El panel tiene cinco botones:</p>
 <ul>
   <li><b>Estado</b> — muestra la ventana de estado (proyecto principal actual y lista de proyectos activos).</li>
@@ -108,12 +117,17 @@ hr { border: none; border-top: 1px solid #dddddd; margin: 24px 0; }
 
 <h2>Cómo usarlo</h2>
 <ol>
-  <li>Abre <b>Configuración</b> y añade al menos un proyecto: nombre, carpeta, archivo. Por ejemplo, proyecto "DeepSeek", archivo "deepseek-chat.docx".</li>
-  <li>Márcalo como principal (Establecer como principal).</li>
-  <li>Abre el chat de IA en Chrome.</li>
-  <li>Selecciona el fragmento y pulsa <b>Ctrl+C</b> (o haz clic en "Copiar" en la interfaz del chat).</li>
+  <li>Abre un chat con IA (DeepSeek, ChatGPT, Qwen, GLM y similares) en Chrome.</li>
+  <li>Copia la respuesta de una de dos formas:
+    <ul>
+      <li>Haz clic en el botón <b>Copiar</b> de la interfaz del chat
+          (recomendado — así se conserva el formato HTML), o</li>
+      <li>selecciona el texto y pulsa <b>Ctrl+C</b> en el teclado.</li>
+    </ul>
+  </li>
   <li>Aparece una ventana emergente en un segundo con la elección de proyecto: haz clic en el que quieras, o deja que se cierre automáticamente (se usa el proyecto principal).</li>
   <li>Abre el archivo de Word: el texto está allí (las escrituras se retrasan unos 5 segundos).</li>
+  <li>Para añadir más proyectos: <b>Configuración → Añadir</b>, introduce nombre, carpeta y archivo. Marca uno como principal (Establecer como principal) — las escrituras van allí por defecto.</li>
 </ol>
 
 <h2>Idioma de la interfaz</h2>
@@ -140,6 +154,9 @@ hr { border: none; border-top: 1px solid #dddddd; margin: 24px 0; }
 
 <h2>Conviene saber</h2>
 <ul>
+  <li>El <b>tic-tac</b> significa que la app está en marcha y espera una copia. Para silenciarlo: Configuración → desmarca Sonido.</li>
+  <li>En el primer inicio se crean automáticamente un proyecto Default y un
+      archivo vacío con encabezado en la carpeta <code>~/ChatClipper</code>.</li>
   <li>Las escrituras se retrasan unos 5 segundos por motivos de rendimiento.</li>
   <li>Si el archivo de Word está abierto en un editor, el nuevo contenido no se mostrará al instante: cierra y vuelve a abrir el archivo.</li>
   <li>No edites el archivo a mano entre una escritura y un deshacer; de lo contrario, Deshacer eliminará los párrafos equivocados.</li>

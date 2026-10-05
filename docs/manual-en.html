@@ -51,6 +51,15 @@ hr { border: none; border-top: 1px solid #dddddd; margin: 24px 0; }
 
 <img src="panel-window.png" alt="ChatClipper control panel">
 
+<p>On the very first run ChatClipper automatically creates a default
+project at <code>~/ChatClipper</code> (your user home folder) with an
+empty Word file that already contains a heading. You can start copying
+text right away — no setup needed.</p>
+
+<p>You will also hear a soft <b>ticking clock sound</b>. This means the
+app is running and waiting for you to copy something from a chat. The
+sound stops while the app is paused and resumes when you start it again.</p>
+
 <p>The panel has five buttons:</p>
 <ul>
   <li><b>Status</b> — show the status window (current main project and list of active projects).</li>
@@ -108,12 +117,17 @@ hr { border: none; border-top: 1px solid #dddddd; margin: 24px 0; }
 
 <h2>How to use</h2>
 <ol>
-  <li>Open <b>Settings</b> and add at least one project: name, folder, file. For example, project "DeepSeek", file "deepseek-chat.docx".</li>
-  <li>Mark it as main (Set as main).</li>
-  <li>Open the AI chat in Chrome.</li>
-  <li>Select the fragment and press <b>Ctrl+C</b> (or click "Copy" in the chat UI).</li>
+  <li>Open the AI chat in Chrome (DeepSeek, ChatGPT, Qwen, GLM and similar).</li>
+  <li>Copy the reply in one of two ways:
+    <ul>
+      <li>Click the <b>Copy</b> button shown in the chat UI (recommended —
+          this also preserves HTML formatting), or</li>
+      <li>Select the text and press <b>Ctrl+C</b> on the keyboard.</li>
+    </ul>
+  </li>
   <li>A popup appears in a second with the project choice — click the one you want, or let it auto-close (the main project is used).</li>
   <li>Open the Word file — the text is there (writes are delayed by about 5 seconds).</li>
+  <li>To add more projects: <b>Settings → Add</b>, enter name, folder and file. Mark one as main (Set as main) — writes go there by default.</li>
 </ol>
 
 <h2>Interface language</h2>
@@ -140,6 +154,9 @@ hr { border: none; border-top: 1px solid #dddddd; margin: 24px 0; }
 
 <h2>Good to know</h2>
 <ul>
+  <li>The <b>ticking sound</b> means the app is running and waiting for a copy. To silence it: Settings → uncheck Sound.</li>
+  <li>On first launch a default project and an empty file with a heading
+      are created automatically at <code>~/ChatClipper</code>.</li>
   <li>Writes are delayed by about 5 seconds — for performance reasons.</li>
   <li>If the Word file is open in an editor, new content will not show up on the fly — close and reopen the file.</li>
   <li>Do not edit the file by hand between a write and an undo — otherwise Undo will remove the wrong paragraphs.</li>

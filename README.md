@@ -23,6 +23,10 @@ file. No more manual copy-paste — the program does it for you.
 - Appends the copied text to the project file (.docx / .md / .txt).
 - Supports multiple projects with one main project.
 - Works in the background — lives in the system tray.
+- First run creates a default project at `~/ChatClipper` with an empty
+  file that already has a heading — you can start copying right away.
+- A ticking clock sound plays while the app is waiting for a copy —
+  this means the app is running and ready.
 
 ---
 
@@ -93,11 +97,21 @@ After install, the tray icon appears (Windows).
 
 ## 🎮 Usage
 
-1. Click the ChatClipper tray icon → **Settings**.
-2. Add a project: name, folder, file name. Example: "DeepSeek" → "deepseek-chat.docx".
-3. Set one project as main — writes go there by default.
-4. Open a chat with an AI, copy the reply (Ctrl+C or the Copy button).
-5. ChatClipper appends the text to the file. Open it in Word to see the result.
+On first launch ChatClipper automatically creates a default project at
+`~/ChatClipper` (your user home folder) with an empty Word file that
+already contains a heading. No setup needed — just start copying.
+
+1. Open a chat with an AI (DeepSeek, ChatGPT, Qwen, GLM and similar) in Chrome.
+2. Copy the reply in one of two ways:
+   - click the **Copy** button shown in the chat UI (recommended — it
+     also preserves HTML formatting), or
+   - select the text and press **Ctrl+C** on the keyboard.
+3. A popup appears in a second with the project choice — click the one
+   you want, or let it auto-close (the main project is used).
+4. Open the project file in Word — the text is there (writes are delayed
+   by about 5 seconds).
+5. To add more projects: ChatClipper panel → **Settings** → **Add**.
+   Set one project as main — writes go there by default.
 
 ---
 
@@ -206,8 +220,9 @@ If you did edit it manually, skip undo and copy the text again.
 
 | Problem | Solution |
 |---------|----------|
-| Text is not saved | Check that Chrome is the active window when you press Copy |
+| Text is not saved | Click the **Copy** button in the chat, or select text and press **Ctrl+C**; make sure Chrome is the active window |
 | File is not updated | Wait ~5 s, or close and reopen the file (buffered writes) |
+| Ticking sound bothers me | Disable it in Settings → Sound, or pick a quieter .wav |
 | Tray icon not visible | Check Windows tray settings; ensure ChatClipper is running |
 | Undo removed wrong text | Do not edit the .docx manually between write and undo |
 | Language not detected | Set language manually in Settings |
