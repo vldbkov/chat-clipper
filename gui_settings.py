@@ -130,6 +130,7 @@ class SettingsWindow(tk.Toplevel):
         sb.pack(side="left", fill="y")
         self.tree.configure(yscrollcommand=sb.set)
         self.tree.bind("<Button-3>", self._on_tree_right_click)
+        self.tree.bind("<Double-1>", self._on_tree_double_click)
 
         btns = ttk.Frame(self, padding=8)
         btns.pack(fill="x")
@@ -343,10 +344,30 @@ class SettingsWindow(tk.Toplevel):
             return
         menu = tk.Menu(self, tearoff=0)
         menu.add_command(label=i18n.t("ctx.open_chat_file"), command=lambda p=project: self._open_docx(p))
+        menu.add_command(label=i18n.t("ctx.open_folder"), command=lambda p=project: self._open_folder(p))
         try:
             menu.tk_popup(event.x_root, event.y_root)
         finally:
             menu.grab_release()
+
+    # Double click on project row: open its folder in file manager
+    def _on_tree_double_click(self, event):
+        row = self.tree.identify_row(event.y)
+        if not row:
+            return
+        self.tree.selection_set(row)
+        project = self._selected_project()
+        if not project:
+            return
+        self._open_folder(project)
+
+    # Open project folder in system file manager
+    def _open_folder(self, project):
+        folder = project.folder
+        if not os.path.isdir(folder):
+            messagebox.showwarning("ChatClipper", i18n.t("msg.file_not_found") + folder)
+            return
+        open_file(folder)
 
     # Open project .docx in associated application
     def _open_docx(self, project):

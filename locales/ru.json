@@ -88,5 +88,6 @@
   "msg.folder_missing": "Папка не существует. Создать?",
   "msg.folder_create_fail": "Не удалось создать папку: ",
   "startup.title": "ChatClipper",
-  "ctx.open_chat_file": "Открыть файл записи чата"
+  "ctx.open_chat_file": "Открыть файл записи чата",
+  "ctx.open_folder": "Открыть папку"
 }

@@ -109,6 +109,7 @@ def run_gui_process():
         sys.exit(0)
 
     ensure_dirs()
+    state.apply_sound()
     autostart.apply(state.config.autostart)
 
     start_ipc_server(state)

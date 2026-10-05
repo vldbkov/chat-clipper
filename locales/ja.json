@@ -88,5 +88,6 @@
   "msg.folder_missing": "フォルダが存在しません。作成しますか？",
   "msg.folder_create_fail": "フォルダを作成できません: ",
   "startup.title": "ChatClipper",
-  "ctx.open_chat_file": "チャットファイルを開く"
+  "ctx.open_chat_file": "チャットファイルを開く",
+  "ctx.open_folder": "フォルダを開く"
 }

@@ -39,7 +39,7 @@ class AppState:
     def apply_sound(self):
         try:
             from sound_player import player
-            from config import BASE_DIR
+            from config import BASE_DIR, DEFAULT_SOUND_NAME
             if not getattr(self.config, "sound_enabled", True):
                 player.stop()
                 return
@@ -47,6 +47,8 @@ class AppState:
                 player.stop()
                 return
             name = getattr(self.config, "sound_name", "") or ""
+            if not name:
+                name = DEFAULT_SOUND_NAME
             if not name:
                 player.stop()
                 return

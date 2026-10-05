@@ -88,5 +88,6 @@
   "msg.folder_missing": "La carpeta no existe. ¿Crear?",
   "msg.folder_create_fail": "No se puede crear la carpeta: ",
   "startup.title": "ChatClipper",
-  "ctx.open_chat_file": "Abrir archivo de chat"
+  "ctx.open_chat_file": "Abrir archivo de chat",
+  "ctx.open_folder": "Abrir carpeta"
 }

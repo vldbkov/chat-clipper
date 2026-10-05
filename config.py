@@ -25,7 +25,7 @@ DEFAULT_UNDO_MAX_TEXT_LEN = 10000
 DEFAULT_SKIP_SECRETS = True
 DEFAULT_USE_PANDOC = False
 DEFAULT_SOUND_ENABLED = True
-DEFAULT_SOUND_NAME = ""
+DEFAULT_SOUND_NAME = "old-clock-ticking.wav"
 
 
 @dataclass
@@ -126,11 +126,64 @@ def _resolve_default_locale() -> str:
     return "en"
 
 
+# Create an initial file for a project if it does not exist yet
+def _create_project_file(project: Project) -> None:
+    fmt = (getattr(project, "format", "docx") or "docx").lower()
+    path = project.docx_path
+    if fmt == "md" and path.lower().endswith(".docx"):
+        path = path[:-5] + ".md"
+    elif fmt == "txt" and path.lower().endswith(".docx"):
+        path = path[:-5] + ".txt"
+    folder = os.path.dirname(path)
+    if folder and not os.path.isdir(folder):
+        try:
+            os.makedirs(folder, exist_ok=True)
+        except Exception as e:
+            log.exception("Failed to create project folder %s: %s", folder, e)
+            return
+    if os.path.exists(path):
+        return
+    try:
+        if fmt == "md":
+            with open(path, "w", encoding="utf-8", newline="\n") as f:
+                f.write("# " + project.name + "\n")
+        elif fmt == "txt":
+            with open(path, "w", encoding="utf-8", newline="\n") as f:
+                f.write(project.name + "\n" + "-" * 40 + "\n")
+        else:
+            from docx import Document
+            doc = Document()
+            doc.add_heading(project.name, level=0)
+            doc.save(path)
+        log.info("created project file: %s", path)
+    except Exception as e:
+        log.exception("Failed to create project file %s: %s", path, e)
+
+
+# Create default project on first run or when config has no projects
+def _ensure_default_project(cfg: AppConfig) -> None:
+    if cfg.projects:
+        return
+    folder = os.path.join(os.path.expanduser("~"), "ChatClipper")
+    try:
+        os.makedirs(folder, exist_ok=True)
+    except Exception as e:
+        log.exception("Failed to create default folder: %s", e)
+    project = Project(name="Default", folder=folder, docx_name="default-chat.docx", active=True, format="docx")
+    cfg.projects.append(project)
+    if not cfg.main_project:
+        cfg.main_project = "Default"
+    _create_project_file(project)
+    log.info("first run: created default project at %s", folder)
+
+
+# Load config from disk; auto-create default project if missing
 def load_config() -> AppConfig:
     if not os.path.exists(CONFIG_PATH):
         log.info("config.json not found - creating default")
         cfg = AppConfig()
         cfg.locale = _resolve_default_locale()
+        _ensure_default_project(cfg)
         save_config(cfg)
         return cfg
     try:
@@ -140,10 +193,16 @@ def load_config() -> AppConfig:
             data["locale"] = _resolve_default_locale()
         cfg = AppConfig.from_dict(data)
         log.info("config.json loaded: %d projects", len(cfg.projects))
+        if not cfg.projects:
+            _ensure_default_project(cfg)
+            save_config(cfg)
         return cfg
     except Exception as e:
         log.exception("Error reading config.json: %s", e)
-        return AppConfig()
+        cfg = AppConfig()
+        cfg.locale = _resolve_default_locale()
+        _ensure_default_project(cfg)
+        return cfg
 
 
 _pending_cfg = None
