@@ -1,0 +1,19 @@
+# Auto normalization: LF in repo, CRLF in working copy on Windows
+* text=auto
+
+# Explicitly text
+*.py    text
+*.md    text
+*.txt   text
+*.json  text
+*.ini   text
+*.cfg   text
+
+# Explicitly binary
+*.ico   binary
+*.png   binary
+*.jpg   binary
+*.wav   binary
+*.docx  binary
+*.exe   binary
+*.dll   binary
