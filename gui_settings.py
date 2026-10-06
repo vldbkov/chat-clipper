@@ -475,9 +475,7 @@ class SettingsWindow(tk.Toplevel):
         dlg = SoundDialog(self, self.cfg)
         self.wait_window(dlg.win)
         if dlg.result is not None:
-            self.cfg.sound_name = dlg.result
-            self.cfg.sound_enabled = bool(self.var_sound.get())
-            self.app_state.apply_sound()
+            self._pending_sound_name = dlg.result
 
     # Save settings
     # Snapshot current UI values to detect unsaved changes later
@@ -648,11 +646,15 @@ class SettingsWindow(tk.Toplevel):
         self.cfg.autostart = bool(self.autostart_state)
         self.cfg.tray_enabled = new_tray
         self.cfg.sound_enabled = bool(self.var_sound.get())
+        pending_sound = getattr(self, "_pending_sound_name", None)
+        if pending_sound is not None:
+            self.cfg.sound_name = pending_sound
         self.cfg.active_source = self._name_to_key(self.var_source.get())
         self.cfg.locale = self._lang_name_to_key(self.var_language.get())
         self.cfg.use_pandoc = bool(self.var_pandoc.get()) and bool(self.pandoc_available)
         save_config(self.cfg)
         ensure_dirs()
+        self.app_state.apply_sound()
         if old_autostart != self.cfg.autostart:
             autostart.apply(self.cfg.autostart)
         for p in self.cfg.projects:
