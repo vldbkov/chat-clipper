@@ -1,10 +1,14 @@
 # Copyright (©) 2026, Vladimir Baykov. All rights reserved.
-# Chrome source: any window whose process name contains "chrome"
+# Chromium source: any window whose process name contains a known browser
 from sources.source_base import SourceBase
 from platform_utils import get_active_process_name
 
 
-# Chrome browser source
+# Process name substrings of Chromium-based browsers
+CHROMIUM_PROCESSES = ("chrome", "opera", "brave", "msedge", "vivaldi", "yandex", "chromium")
+
+
+# Chromium browser source (Chrome, Opera, Edge, Brave, Vivaldi, Yandex)
 class SourceChrome(SourceBase):
     # Human-readable name
     @property
@@ -17,9 +21,10 @@ class SourceChrome(SourceBase):
     def key(self) -> str:
         return "chrome"
 
-    # Check that active window belongs to Chrome
+    # Check that active window belongs to a Chromium-based browser
     def is_active(self) -> bool:
         name = get_active_process_name()
         if not name:
             return False
-        return "chrome" in name
+        lowered = name.lower()
+        return any(p in lowered for p in CHROMIUM_PROCESSES)
