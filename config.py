@@ -9,6 +9,9 @@ import i18n
 
 import sys
 
+# Application version — keep in sync with GitHub release tag (v1.0.0)
+APP_VERSION = "1.0.0"
+
 # Resource directory: read-only data (sounds, locales, docs, icon)
 # Inside PyInstaller bundle, resources live in sys._MEIPASS
 # In normal run, they live next to the source files
