@@ -1,6 +1,7 @@
 # ChatClipper settings window: project list, capture params, autostart
 import os
 from pathlib import Path
+import threading
 import webbrowser
 import tkinter as tk
 from tkinter import ttk, filedialog, messagebox
@@ -8,13 +9,14 @@ from tkinter import ttk, filedialog, messagebox
 from docx import Document
 
 from logger import log
-from config import Project, save_config, ensure_dirs
+from config import Project, save_config, ensure_dirs, APP_VERSION
 from platform_utils import open_file, IS_WINDOWS, is_pandoc_available
 from ui_helpers import center_window, apply_icon, Tooltip
 from sources.source_factory import list_sources
 from ipc_client import send_ipc_command
 import i18n
 import autostart
+from updater import check_for_update
 
 
 # Create empty .docx if missing
@@ -52,7 +54,7 @@ class SettingsWindow(tk.Toplevel):
         apply_icon(self)
         self.app_state = app_state
         self.cfg = app_state.config
-        self.title(i18n.t("settings.title"))
+        self.title("ChatClipper v" + APP_VERSION + " " + i18n.t("settings.title_suffix"))
         self.geometry("620x380")
         self.minsize(600, 370)
         self._build()
@@ -92,20 +94,81 @@ class SettingsWindow(tk.Toplevel):
     def _on_sponsor(self):
         webbrowser.open("https://yoomoney.ru/to/4100119453410920")
 
+    # Check GitHub for newer release in background thread
+    def _on_check_update(self):
+        if getattr(self, "_update_check_running", False):
+            return
+        self._update_check_running = True
+        try:
+            self.btn_check_update.configure(state="disabled")
+        except Exception:
+            pass
+        threading.Thread(target=self._run_update_check, daemon=True).start()
+
+    # Background worker: query GitHub and show result dialog on the main thread
+    def _run_update_check(self):
+        result = check_for_update()
+        try:
+            self.after(0, lambda: self._finish_update_check(result))
+        except Exception:
+            pass
+
+    # Show result first, then re-enable the button (so it stays disabled while dialog is open)
+    def _finish_update_check(self, result):
+        self._show_update_result(result)
+        self._update_check_running = False
+        try:
+            self.btn_check_update.configure(state="normal")
+        except Exception:
+            pass
+
+    # Show update dialog: newer version with notes, or up-to-date message
+    def _show_update_result(self, result):
+        if result is None:
+            messagebox.showinfo(i18n.t("upd.title"), i18n.t("upd.up_to_date") + " v" + APP_VERSION, parent=self)
+            return
+        dlg = tk.Toplevel(self)
+        dlg.title(i18n.t("upd.title"))
+        dlg.transient(self)
+        dlg.grab_set()
+        wrap = ttk.Frame(dlg, padding=12)
+        wrap.pack(fill="both", expand=True)
+        ttk.Label(wrap, text=i18n.t("upd.available") + " v" + result["version"], font=("Segoe UI", 11, "bold")).pack(anchor="w")
+        notes_text = tk.Text(wrap, width=60, height=12, wrap="word")
+        notes_text.insert("1.0", result["notes"] or "")
+        notes_text.configure(state="disabled")
+        notes_text.pack(fill="both", expand=True, pady=(8, 8))
+        btns = ttk.Frame(wrap)
+        btns.pack(fill="x")
+        ttk.Button(btns, text=i18n.t("upd.btn_later"), command=dlg.destroy).pack(side="right", padx=4)
+        ttk.Button(btns, text=i18n.t("upd.btn_download"), command=lambda: (webbrowser.open(result["url"]), dlg.destroy())).pack(side="right", padx=4)
+        center_window(dlg)
+        dlg.lift()
+        dlg.attributes("-topmost", True)
+        dlg.after(300, lambda: dlg.attributes("-topmost", False))
+        try:
+            dlg.focus_force()
+        except Exception:
+            pass
+        self.wait_window(dlg)
+
     # Build UI
     def _build(self):
         top = ttk.Frame(self, padding=(8, 8, 8, 0))
         top.pack(fill="x")
         ttk.Label(top, text=i18n.t("settings.projects"), font=("Segoe UI", 10, "bold")).pack(side="left", anchor="w")
-        btn_sponsor = ttk.Button(top, text="🙏 Donate", command=self._on_sponsor)
+        btn_sponsor = ttk.Button(top, text="🙏 " + i18n.t("settings.btn_donate"), command=self._on_sponsor)
         btn_sponsor.pack(side="right", padx=(0, 20))
         Tooltip(btn_sponsor, "Support the author")
-        btn_help = ttk.Button(top, text="📖 Help", command=self._on_help)
+        btn_help = ttk.Button(top, text="📖 " + i18n.t("settings.btn_help"), command=self._on_help)
         btn_help.pack(side="right", padx=(0, 4))
         Tooltip(btn_help, "Open user manual")
-        btn_feedback = ttk.Button(top, text="💬 Feedback", command=self._on_feedback)
+        btn_feedback = ttk.Button(top, text="💬 " + i18n.t("settings.btn_feedback"), command=self._on_feedback)
         btn_feedback.pack(side="right", padx=(0, 4))
         Tooltip(btn_feedback, "Send feedback")
+        self.btn_check_update = ttk.Button(top, text="🔄 " + i18n.t("settings.btn_check_update"), command=self._on_check_update)
+        self.btn_check_update.pack(side="right", padx=(0, 4))
+        Tooltip(self.btn_check_update, "Check for updates")
 
         mid = ttk.Frame(self, padding=8)
         mid.pack(fill="x")
@@ -169,14 +232,14 @@ class SettingsWindow(tk.Toplevel):
         f_popup.pack(side="left", padx=4)
         ttk.Label(f_popup, text=i18n.t("settings.popup_sec")).pack(side="left")
         self.var_popup = tk.StringVar()
-        self.entry_popup = ttk.Entry(f_popup, textvariable=self.var_popup, width=2)
+        self.entry_popup = ttk.Spinbox(f_popup, from_=1, to=10, increment=1, textvariable=self.var_popup, width=3)
         self.entry_popup.pack(side="left", padx=4)
 
         f_alpha = ttk.Frame(row0)
         f_alpha.pack(side="left", padx=4)
         ttk.Label(f_alpha, text=i18n.t("settings.alpha")).pack(side="left")
         self.var_alpha = tk.StringVar()
-        self.entry_alpha = ttk.Entry(f_alpha, textvariable=self.var_alpha, width=2)
+        self.entry_alpha = ttk.Combobox(f_alpha, textvariable=self.var_alpha, values=("30", "40", "50", "60", "70", "80", "90", "100"), state="readonly", width=3)
         self.entry_alpha.pack(side="left", padx=4)
 
         # Row 1: language, tray, pandoc, source
@@ -253,8 +316,7 @@ class SettingsWindow(tk.Toplevel):
         self.entry_popup.insert(0, str(self.cfg.popup_seconds))
         alpha_pct = int(round(float(self.cfg.popup_alpha) * 100))
         self.var_alpha.set(str(alpha_pct))
-        self.entry_alpha.delete(0, "end")
-        self.entry_alpha.insert(0, str(alpha_pct))
+        self.entry_alpha.set(str(alpha_pct))
         
         self.autostart_state = bool(self.cfg.autostart)
         self.var_autostart.set(self.autostart_state)
