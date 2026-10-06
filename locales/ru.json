@@ -8,6 +8,7 @@
   "tray.restart": "Рестарт",
   "tray.exit": "Выход",
   "settings.title": "ChatClipper — Настройки",
+  "settings.title_suffix": "— Настройки",
   "settings.projects": "Проекты",
   "settings.name": "Имя проекта",
   "settings.folder": "Папка",
@@ -23,7 +24,7 @@
   "settings.status_no_active": "(нет)",
   "settings.min_len": "Мин. длина текста (символов):",
   "settings.popup_sec": "Время показа окна (сек):",
-  "settings.alpha": "Прозрачность окна (%):",
+  "settings.alpha": "Непрозрачность окна статуса (%):",
   "settings.autostart": "Автозагрузка",
   "settings.tray": "Показывать трей",
   "settings.restart_confirm": "Смена режима Трей/Панель требует перезапуска. Перезапустить сейчас?",
@@ -89,5 +90,14 @@
   "msg.folder_create_fail": "Не удалось создать папку: ",
   "startup.title": "ChatClipper",
   "ctx.open_chat_file": "Открыть файл записи чата",
-  "ctx.open_folder": "Открыть папку"
+  "ctx.open_folder": "Открыть папку",
+  "upd.title": "Проверка обновлений",
+  "upd.up_to_date": "У вас последняя версия",
+  "upd.available": "Доступна новая версия:",
+  "upd.btn_download": "Скачать",
+  "upd.btn_later": "Позже",
+  "settings.btn_check_update": "Проверить обновления",
+  "settings.btn_feedback": "Обратная связь",
+  "settings.btn_help": "Справка",
+  "settings.btn_donate": "Донат"
 }

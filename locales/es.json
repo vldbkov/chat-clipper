@@ -8,6 +8,7 @@
   "tray.restart": "Reiniciar",
   "tray.exit": "Salir",
   "settings.title": "ChatClipper — Ajustes",
+  "settings.title_suffix": "— Ajustes",
   "settings.projects": "Proyectos",
   "settings.name": "Nombre del proyecto",
   "settings.folder": "Carpeta",
@@ -23,7 +24,7 @@
   "settings.status_no_active": "(ninguno)",
   "settings.min_len": "Longitud mín. de texto (car.):",
   "settings.popup_sec": "Tiempo de popup (seg.):",
-  "settings.alpha": "Transparencia de ventana (%):",
+  "settings.alpha": "Opacidad de la ventana de estado (%):",
   "settings.autostart": "Inicio automático",
   "settings.tray": "Mostrar bandeja",
   "settings.restart_confirm": "El cambio de modo de bandeja/panel requiere reinicio. ¿Reiniciar ahora?",
@@ -89,5 +90,14 @@
   "msg.folder_create_fail": "No se puede crear la carpeta: ",
   "startup.title": "ChatClipper",
   "ctx.open_chat_file": "Abrir archivo de chat",
-  "ctx.open_folder": "Abrir carpeta"
+  "ctx.open_folder": "Abrir carpeta",
+  "upd.title": "Buscar actualizaciones",
+  "upd.up_to_date": "Estás usando la última versión",
+  "upd.available": "Nueva versión disponible:",
+  "upd.btn_download": "Descargar",
+  "upd.btn_later": "Más tarde",
+  "settings.btn_check_update": "Buscar actualizaciones",
+  "settings.btn_feedback": "Comentarios",
+  "settings.btn_help": "Ayuda",
+  "settings.btn_donate": "Donar"
 }

@@ -8,6 +8,7 @@
   "tray.restart": "Restart",
   "tray.exit": "Exit",
   "settings.title": "ChatClipper — Settings",
+  "settings.title_suffix": "— Settings",
   "settings.projects": "Projects",
   "settings.name": "Project name",
   "settings.folder": "Folder",
@@ -23,7 +24,7 @@
   "settings.status_no_active": "(none)",
   "settings.min_len": "Min. text length (chars):",
   "settings.popup_sec": "Popup time (sec):",
-  "settings.alpha": "Window transparency (%):",
+  "settings.alpha": "Status window opacity (%):",
   "settings.autostart": "Autostart",
   "settings.tray": "Show tray",
   "settings.restart_confirm": "Tray/Panel mode change requires restart. Restart now?",
@@ -89,5 +90,14 @@
   "msg.folder_create_fail": "Cannot create folder: ",
   "startup.title": "ChatClipper",
   "ctx.open_chat_file": "Open chat file",
-  "ctx.open_folder": "Open folder"
+  "ctx.open_folder": "Open folder",
+  "upd.title": "Check for updates",
+  "upd.up_to_date": "You are running the latest version",
+  "upd.available": "New version available:",
+  "upd.btn_download": "Download",
+  "upd.btn_later": "Later",
+  "settings.btn_check_update": "Check for updates",
+  "settings.btn_feedback": "Feedback",
+  "settings.btn_help": "Help",
+  "settings.btn_donate": "Donate"
 }

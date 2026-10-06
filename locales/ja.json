@@ -8,6 +8,7 @@
   "tray.restart": "再起動",
   "tray.exit": "終了",
   "settings.title": "ChatClipper — 設定",
+  "settings.title_suffix": "— 設定",
   "settings.projects": "プロジェクト",
   "settings.name": "プロジェクト名",
   "settings.folder": "フォルダ",
@@ -23,7 +24,7 @@
   "settings.status_no_active": "(なし)",
   "settings.min_len": "最小テキスト長 (文字):",
   "settings.popup_sec": "ポップアップ時間 (秒):",
-  "settings.alpha": "ウィンドウの透明度 (%):",
+  "settings.alpha": "ステータスウィンドウの不透明度 (%):",
   "settings.autostart": "自動開始",
   "settings.tray": "トレイを表示",
   "settings.restart_confirm": "トレイ/パネルモードの変更には再起動が必要です。今すぐ再起動しますか？",
@@ -89,5 +90,14 @@
   "msg.folder_create_fail": "フォルダを作成できません: ",
   "startup.title": "ChatClipper",
   "ctx.open_chat_file": "チャットファイルを開く",
-  "ctx.open_folder": "フォルダを開く"
+  "ctx.open_folder": "フォルダを開く",
+  "upd.title": "アップデートを確認",
+  "upd.up_to_date": "最新バージョンを使用しています",
+  "upd.available": "新しいバージョンがあります:",
+  "upd.btn_download": "ダウンロード",
+  "upd.btn_later": "後で",
+  "settings.btn_check_update": "アップデートを確認",
+  "settings.btn_feedback": "フィードバック",
+  "settings.btn_help": "ヘルプ",
+  "settings.btn_donate": "支援"
 }
