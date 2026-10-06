@@ -3,6 +3,7 @@
 [![License](https://img.shields.io/badge/license-MIT-yellow)](../LICENSE)
 [![Python](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/)
 [![Platform](https://img.shields.io/badge/platform-windows-0078D6)](https://www.microsoft.com/windows)
+[![Kaspersky](https://img.shields.io/badge/Kaspersky-OpenTIP%20clear-brightgreen)](https://opentip.kaspersky.com/38FC30C3E1A40412F40FF27D5ACC2771C34422E928C2E85FBC23188D260F8109)
 
 **日本語** · [English](../README.md) · [Русский](README-ru.md) · [Deutsch](README-de.md) · [Español](README-es.md)
 
@@ -10,6 +11,8 @@ Chrome で左クリックした後（Web チャットの「コピー」ボタン
 クリップボードを監視し、選択したプロジェクトの .docx / .md / .txt ファイルに
 テキストを追記するデスクトップ ユーティリティです。
 Windows で動作します。Linux / WSL / macOS のサポートは実験的です。
+
+**安全性:** Windows インストーラーは Kaspersky OpenTIP で検証済みです。脅威は検出されませんでした。ソースコードは公開されており、監査可能です。
 
 ---
 

@@ -3,6 +3,7 @@
 [![License](https://img.shields.io/badge/license-MIT-yellow)](LICENSE)
 [![Python](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/)
 [![Platform](https://img.shields.io/badge/platform-windows-0078D6)](https://www.microsoft.com/windows)
+[![Kaspersky](https://img.shields.io/badge/Kaspersky-OpenTIP%20clear-brightgreen)](https://opentip.kaspersky.com/38FC30C3E1A40412F40FF27D5ACC2771C34422E928C2E85FBC23188D260F8109)
 
 **English** · [Русский](docs/README-ru.md) · [Deutsch](docs/README-de.md) · [Español](docs/README-es.md) · [日本語](docs/README-ja.md)
 
@@ -10,6 +11,9 @@ Desktop utility that watches the clipboard after a single LMB click in
 Chrome (Copy button in web chats, e.g. DeepSeek) and appends the text to
 the .docx / .md / .txt file of the selected project.
 Works on Windows; Linux / WSL / macOS support is experimental.
+
+**Safety note:** The Windows installer is verified by Kaspersky OpenTIP.
+No threats were detected. The source code is open and auditable.
 
 ---
 

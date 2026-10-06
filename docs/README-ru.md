@@ -3,6 +3,7 @@
 [![License](https://img.shields.io/badge/license-MIT-yellow)](../LICENSE)
 [![Python](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/)
 [![Platform](https://img.shields.io/badge/platform-windows-0078D6)](https://www.microsoft.com/windows)
+[![Kaspersky](https://img.shields.io/badge/Kaspersky-OpenTIP%20clear-brightgreen)](https://opentip.kaspersky.com/38FC30C3E1A40412F40FF27D5ACC2771C34422E928C2E85FBC23188D260F8109)
 
 **Русский** · [English](../README.md) · [Deutsch](README-de.md) · [Español](README-es.md) · [日本語](README-ja.md)
 
@@ -10,6 +11,8 @@
 Chrome (кнопка «Копировать» в веб-чатах, например DeepSeek) и добавляет текст в
 файл .docx / .md / .txt выбранного проекта.
 Работает на Windows; поддержка Linux / WSL / macOS экспериментальная.
+
+**Безопасность:** Установщик для Windows проверен на Kaspersky OpenTIP. Угроз не обнаружено. Исходный код открыт.
 
 ---
 
