@@ -35,7 +35,7 @@
   "settings.sound": "Sound",
   "settings.sound_tip": "Play ticking sound while waiting for copy",
   "settings.source": "Source:",
-  "source.chrome": "Chrome",
+  "source.browser": "Browser",
   "source.desktop": "Other",
   "settings.sound_dialog": "Waiting sound",
   "settings.sound_none": "(none)",

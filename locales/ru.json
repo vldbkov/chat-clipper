@@ -35,7 +35,7 @@
   "settings.sound": "Звук",
   "settings.sound_tip": "Проигрывать тиканье в режиме ожидания копирования",
   "settings.source": "Источник:",
-  "source.chrome": "Chrome",
+  "source.browser": "Браузер",
   "source.desktop": "Другое",
   "settings.sound_dialog": "Звук ожидания",
   "settings.sound_none": "(нет)",

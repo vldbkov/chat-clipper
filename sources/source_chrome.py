@@ -14,12 +14,12 @@ class SourceChrome(SourceBase):
     @property
     def display_name(self) -> str:
         import i18n
-        return i18n.t("source.chrome")
+        return i18n.t("source.browser")
 
     # Machine key
     @property
     def key(self) -> str:
-        return "chrome"
+        return "browser"
 
     # Check that active window belongs to a Chromium-based browser
     def is_active(self) -> bool:

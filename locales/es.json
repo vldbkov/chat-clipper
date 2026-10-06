@@ -35,7 +35,7 @@
   "settings.sound": "Sonido",
   "settings.sound_tip": "Reproducir tic-tac en espera",
   "settings.source": "Origen:",
-  "source.chrome": "Chrome",
+  "source.browser": "Navegador",
   "source.desktop": "Otro",
   "settings.sound_dialog": "Sonido de espera",
   "settings.sound_none": "(ninguno)",

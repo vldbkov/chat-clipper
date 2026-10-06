@@ -35,7 +35,7 @@
   "settings.sound": "Ton",
   "settings.sound_tip": "Tick-Ton im Wartemodus abspielen",
   "settings.source": "Quelle:",
-  "source.chrome": "Chrome",
+  "source.browser": "Browser",
   "source.desktop": "Andere",
   "settings.sound_dialog": "Warteton",
   "settings.sound_none": "(kein)",

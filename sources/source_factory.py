@@ -1,7 +1,6 @@
 # Copyright (©) 2026, Vladimir Baykov. All rights reserved.
 # Source factory: choose and cache clipboard sources by key
 from sources.source_chrome import SourceChrome
-from sources.source_desktop_chat import SourceDesktopChat
 from logger import log
 import i18n
 
@@ -12,12 +11,12 @@ _sources = {}
 
 # Return source instance by key
 def get_source(key: str):
-    k = (key or "chrome").lower()
+    k = (key or "browser").lower()
+    # Backward compatibility: old keys map to the browser source
+    if k in ("chrome", "desktop"):
+        k = "browser"
     if k not in _sources:
-        if k == "desktop":
-            _sources[k] = SourceDesktopChat()
-        else:
-            _sources[k] = SourceChrome()
+        _sources[k] = SourceChrome()
         log.info("source_factory: created source for key '%s'", k)
     return _sources[k]
 
@@ -25,6 +24,5 @@ def get_source(key: str):
 # Return list of available source keys with display names
 def list_sources() -> list:
     return [
-        ("chrome", i18n.t("source.chrome")),
-        ("desktop", i18n.t("source.desktop")),
+        ("browser", i18n.t("source.browser")),
     ]

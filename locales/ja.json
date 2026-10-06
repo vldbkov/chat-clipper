@@ -35,7 +35,7 @@
   "settings.sound": "サウンド",
   "settings.sound_tip": "コピー待機中に音を再生",
   "settings.source": "ソース:",
-  "source.chrome": "Chrome",
+  "source.browser": "ブラウザ",
   "source.desktop": "その他",
   "settings.sound_dialog": "待機サウンド",
   "settings.sound_none": "(なし)",
