@@ -8,6 +8,7 @@
 *.json  text
 *.ini   text
 *.cfg   text
+*.iss   text eol=crlf
 
 # Explicitly binary
 *.ico   binary
