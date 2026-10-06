@@ -3,8 +3,13 @@ import os
 import sys
 from logging.handlers import RotatingFileHandler
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-LOG_DIR = os.path.join(BASE_DIR, "logging")
+
+# Log directory: %APPDATA%/ChatClipper/logging when frozen, else next to source
+if getattr(sys, "frozen", False):
+    _DATA_BASE = os.environ.get("APPDATA") or os.path.expanduser("~")
+    LOG_DIR = os.path.join(_DATA_BASE, "ChatClipper", "logging")
+else:
+    LOG_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "logging")
 LOG_FILE = os.path.join(LOG_DIR, "chatclipper.log")
 
 

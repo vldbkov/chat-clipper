@@ -7,13 +7,37 @@ from typing import List
 from logger import log
 import i18n
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-CONFIG_PATH = os.path.join(BASE_DIR, "config.json")
-PENDING_DIR = os.path.join(BASE_DIR, "pending")
-HASHES_PATH = os.path.join(BASE_DIR, "hashes.json")
-LAST_BUFFERS_PATH = os.path.join(BASE_DIR, "last_buffers.json")
-ICON_PATH = os.path.join(BASE_DIR, "chatclipper-light.ico")
-IPC_TOKEN_PATH = os.path.join(BASE_DIR, "ipc_token")
+import sys
+
+# Resource directory: read-only data (sounds, locales, docs, icon)
+# Inside PyInstaller bundle, resources live in sys._MEIPASS
+# In normal run, they live next to the source files
+def _resource_dir() -> str:
+    if getattr(sys, "frozen", False):
+        return getattr(sys, "_MEIPASS", os.path.dirname(os.path.abspath(__file__)))
+    return os.path.dirname(os.path.abspath(__file__))
+
+
+# Data directory: writable runtime files (config, hashes, pending, ipc_token)
+# Inside PyInstaller bundle, use %APPDATA%/ChatClipper to avoid writing to Program Files
+def _data_dir() -> str:
+    if getattr(sys, "frozen", False):
+        base = os.environ.get("APPDATA") or os.path.expanduser("~")
+        path = os.path.join(base, "ChatClipper")
+        os.makedirs(path, exist_ok=True)
+        return path
+    return os.path.dirname(os.path.abspath(__file__))
+
+
+RESOURCE_DIR = _resource_dir()
+DATA_DIR = _data_dir()
+BASE_DIR = RESOURCE_DIR
+CONFIG_PATH = os.path.join(DATA_DIR, "config.json")
+PENDING_DIR = os.path.join(DATA_DIR, "pending")
+HASHES_PATH = os.path.join(DATA_DIR, "hashes.json")
+LAST_BUFFERS_PATH = os.path.join(DATA_DIR, "last_buffers.json")
+ICON_PATH = os.path.join(RESOURCE_DIR, "chatclipper-light.ico")
+IPC_TOKEN_PATH = os.path.join(DATA_DIR, "ipc_token")
 
 DEFAULT_MIN_TEXT_LEN = 50
 DEFAULT_POPUP_SECONDS = 1

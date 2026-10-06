@@ -4,10 +4,7 @@ import os
 import zlib
 
 from logger import log
-
-
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-HASHES_PATH = os.path.join(BASE_DIR, "hashes.json")
+from config import HASHES_PATH
 
 
 # Ring storage of CRC32 for the last accepted texts

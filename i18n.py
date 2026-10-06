@@ -2,12 +2,17 @@
 # Simple i18n module: t(key) returns string for current locale
 import json
 import os
+import sys
 
 from logger import log
 
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-LOCALES_DIR = os.path.join(BASE_DIR, "locales")
+# Locate locales/ folder: inside PyInstaller bundle or next to source
+if getattr(sys, "frozen", False):
+    _RESOURCE_DIR = getattr(sys, "_MEIPASS", os.path.dirname(os.path.abspath(__file__)))
+else:
+    _RESOURCE_DIR = os.path.dirname(os.path.abspath(__file__))
+LOCALES_DIR = os.path.join(_RESOURCE_DIR, "locales")
 
 _current_locale = "en"
 _strings = {}
