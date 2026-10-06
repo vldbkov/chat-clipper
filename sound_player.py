@@ -40,11 +40,16 @@ class SoundPlayer:
     # Stop playback; safe to call when nothing is playing
     def stop(self) -> None:
         with self._lock:
-            if self._thread is None:
+            t = self._thread
+            if t is None:
                 return
             self._stop_event.set()
             self._thread = None
             self._current_path = ""
+        try:
+            t.join(timeout=1.0)
+        except Exception:
+            pass
         log.info("SoundPlayer: stopped")
 
     # Return True if a sound is currently playing
