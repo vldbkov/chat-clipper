@@ -4,6 +4,7 @@ import os
 import sys
 import threading
 import time
+import webbrowser
 import tkinter as tk
 from tkinter import messagebox
 
@@ -17,8 +18,10 @@ from control_panel import ControlPanel
 from app_state import state
 from ui_helpers import apply_icon
 from platform_utils import IS_WINDOWS
+from updater import check_for_update
 import actions
 import autostart
+import i18n
 
 
 # Handle copy from Chrome: dedup, hash, queue popup action
@@ -97,6 +100,39 @@ def show_startup_status():
         log.exception("Startup status error: %s", e)
 
 
+# Background update check at startup; silent if version is up to date
+def _bg_check_update(root):
+    result = check_for_update()
+    if result is None:
+        return
+    try:
+        root.after(0, lambda: _show_startup_update_dialog(root, result))
+    except Exception:
+        pass
+
+
+# Show startup update dialog on the main Tk thread
+def _show_startup_update_dialog(root, result):
+    try:
+        dlg = tk.Toplevel(root)
+        dlg.title(i18n.t("upd.title"))
+        wrap = tk.Frame(dlg, padx=12, pady=12)
+        wrap.pack(fill="both", expand=True)
+        tk.Label(wrap, text=i18n.t("upd.available") + " v" + result["version"], font=("Segoe UI", 11, "bold")).pack(anchor="w")
+        txt = tk.Text(wrap, width=60, height=10, wrap="word")
+        txt.insert("1.0", result["notes"] or "")
+        txt.configure(state="disabled")
+        txt.pack(fill="both", expand=True, pady=(8, 8))
+        btns = tk.Frame(wrap)
+        btns.pack(fill="x")
+        tk.Button(btns, text=i18n.t("upd.btn_later"), command=dlg.destroy).pack(side="right", padx=4)
+        tk.Button(btns, text=i18n.t("upd.btn_download"), command=lambda: (webbrowser.open(result["url"]), dlg.destroy())).pack(side="right", padx=4)
+        dlg.attributes("-topmost", True)
+        dlg.after(300, lambda: dlg.attributes("-topmost", False))
+    except Exception as e:
+        log.exception("startup update dialog error: %s", e)
+
+
 # Run GUI process (main thread of parent process)
 def run_gui_process():
     state.is_gui_process = True
@@ -127,6 +163,7 @@ def run_gui_process():
     state.root_hidden = root
     root.after(100, poll_pending_actions)
     root.after(500, show_startup_status)
+    threading.Thread(target=_bg_check_update, args=(root,), daemon=True).start()
     if not state.tray_started:
         try:
             root.after(700, lambda: ControlPanel(root, state))
