@@ -71,7 +71,7 @@ sound stops while the app is paused and resumes when you start it again.</p>
 <p>The panel can be <b>dragged</b> with the mouse anywhere on the screen. The app remembers its position and opens there next time.</p>
 
 <h2>Settings window</h2>
-<p>Opened by the <b>Settings</b> button. Here you define projects and behaviour.</p>
+<p>Opened by the <b>Settings</b> button. Here you define projects and behaviour. The window is modal: while it is open, other windows and the control panel do not respond.</p>
 
 <img src="settings-window.png" alt="Settings window">
 
@@ -92,11 +92,13 @@ sound stops while the app is paused and resumes when you start it again.</p>
 <ul>
   <li><b>Min. text length (chars)</b> — minimum length of copied text. Too-short fragments (by default less than 35 characters) are ignored.</li>
   <li><b>Popup time (sec)</b> — how long the project picker stays on screen before auto-close.</li>
-  <li><b>Window transparency (%)</b> — transparency of the project picker.</li>
+  <li><b>Status window opacity (%)</b> — opacity of the status window and the project picker (30–100, step 10).</li>
+  <li><b>Theme</b> — the ☀ / 🌙 button in the header switches between light and dark themes. Applies to all windows and the app icon.</li>
+  <li><b>Check for updates</b> — manual check against GitHub Releases. A background check also runs at startup.</li>
   <li><b>Autostart</b> — start ChatClipper together with Windows.</li>
   <li><b>Show tray</b> — switch to a tray icon instead of the panel (see the "Tray" section below).</li>
   <li><b>Pandoc</b> — use Pandoc to convert Markdown to Word (if installed).</li>
-  <li><b>Source</b> — copy source: Chrome or another app.</li>
+  <li><b>Source</b> — copy source: <b>Browser</b> (Chrome, Opera, Edge, Brave, Vivaldi and other Chromium-based browsers).</li>
   <li><b>Sound</b> — ticking sound that plays while waiting for a copy. Click "..." to choose from available sounds.</li>
   <li><b>Language</b> — interface language.</li>
 </ul>
@@ -112,12 +114,13 @@ sound stops while the app is paused and resumes when you start it again.</p>
   <li>The list of active projects — at most 9 items.</li>
   <li>Clicking any of them <b>makes it the main project</b> — all subsequent writes go there.</li>
   <li>When the app is paused, a red <b>PAUSE</b> stamp appears over the window.</li>
+  <li><b>Single click on the PAUSE stamp</b> resumes tracking.</li>
 </ul>
 <p>The window can be dragged. If left alone, it closes automatically after a few seconds.</p>
 
 <h2>How to use</h2>
 <ol>
-  <li>Open the AI chat in Chrome (DeepSeek, ChatGPT, Qwen, GLM and similar).</li>
+  <li>Open the AI chat in a Chromium-based browser (Chrome, Opera, Edge, Brave, Vivaldi).</li>
   <li>Copy the reply in one of two ways:
     <ul>
       <li>Click the <b>Copy</b> button shown in the chat UI (recommended —

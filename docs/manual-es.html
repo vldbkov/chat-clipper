@@ -71,7 +71,7 @@ detiene en pausa y se reanuda al volver a iniciar.</p>
 <p>El panel se puede <b>arrastrar</b> con el ratón a cualquier parte de la pantalla. La aplicación recuerda su posición y se abre allí la próxima vez.</p>
 
 <h2>Ventana de configuración</h2>
-<p>Se abre con el botón <b>Configuración</b>. Aquí defines proyectos y comportamiento.</p>
+<p>Se abre con el botón <b>Configuración</b>. Aquí defines proyectos y comportamiento. La ventana es modal: mientras está abierta, otras ventanas y el panel no responden.</p>
 
 <img src="settings-window.png" alt="Ventana de configuración">
 
@@ -92,11 +92,13 @@ detiene en pausa y se reanuda al volver a iniciar.</p>
 <ul>
   <li><b>Longitud mínima del texto (caracteres)</b> — longitud mínima del texto copiado. Los fragmentos demasiado cortos (por defecto menos de 35 caracteres) se ignoran.</li>
   <li><b>Tiempo de la ventana emergente (s)</b> — cuánto tiempo permanece en pantalla el selector de proyectos antes de cerrarse automáticamente.</li>
-  <li><b>Transparencia de la ventana (%)</b> — transparencia del selector de proyectos.</li>
+  <li><b>Opacidad de la ventana de estado (%)</b> — opacidad de la ventana de estado y del selector de proyectos (30–100, paso 10).</li>
+  <li><b>Tema</b> — el botón ☀ / 🌙 en el encabezado alterna entre tema claro y oscuro. Se aplica a todas las ventanas y al icono.</li>
+  <li><b>Buscar actualizaciones</b> — comprobación manual contra GitHub Releases. También se ejecuta una comprobación en segundo plano al iniciar.</li>
   <li><b>Inicio automático</b> — iniciar ChatClipper junto con Windows.</li>
   <li><b>Mostrar bandeja</b> — cambiar a un icono de bandeja en lugar del panel (ver la sección "Bandeja" más abajo).</li>
   <li><b>Pandoc</b> — usar Pandoc para convertir Markdown a Word (si está instalado).</li>
-  <li><b>Origen</b> — origen de copia: Chrome u otra aplicación.</li>
+  <li><b>Origen</b> — origen de copia: <b>Browser</b> (Chrome, Opera, Edge, Brave, Vivaldi y otros navegadores basados en Chromium).</li>
   <li><b>Sonido</b> — sonido de tic que se reproduce mientras se espera una copia. Haz clic en "..." para elegir entre los sonidos disponibles.</li>
   <li><b>Idioma</b> — idioma de la interfaz.</li>
 </ul>
@@ -112,12 +114,13 @@ detiene en pausa y se reanuda al volver a iniciar.</p>
   <li>La lista de proyectos activos: como máximo 9 elementos.</li>
   <li>Al hacer clic en cualquiera de ellos <b>lo convierte en el proyecto principal</b>: todas las escrituras posteriores van allí.</li>
   <li>Cuando la aplicación está pausada, aparece un sello rojo <b>PAUSE</b> sobre la ventana.</li>
+  <li><b>Un solo clic en el sello PAUSE</b> reanuda el seguimiento.</li>
 </ul>
 <p>La ventana se puede arrastrar. Si se deja sola, se cierra automáticamente tras unos segundos.</p>
 
 <h2>Cómo usarlo</h2>
 <ol>
-  <li>Abre un chat con IA (DeepSeek, ChatGPT, Qwen, GLM y similares) en Chrome.</li>
+  <li>Abre un chat con IA (DeepSeek, ChatGPT, Qwen, GLM y similares) en un navegador Chromium (Chrome, Opera, Edge, Brave, Vivaldi).</li>
   <li>Copia la respuesta de una de dos formas:
     <ul>
       <li>Haz clic en el botón <b>Copiar</b> de la interfaz del chat

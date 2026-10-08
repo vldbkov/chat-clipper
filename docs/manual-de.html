@@ -72,7 +72,7 @@ zurück.</p>
 <p>Das Bedienfeld lässt sich mit der Maus <b>verschieben</b>. Die Position wird gespeichert und beim nächsten Start wiederverwendet.</p>
 
 <h2>Einstellungsfenster</h2>
-<p>Wird über die Schaltfläche <b>Einstellungen</b> geöffnet. Hier werden Projekte und Verhalten festgelegt.</p>
+<p>Wird über die Schaltfläche <b>Einstellungen</b> geöffnet. Hier werden Projekte und Verhalten festgelegt. Das Fenster ist modal: solange es offen ist, reagieren andere Fenster und das Bedienfeld nicht.</p>
 
 <img src="settings-window.png" alt="Einstellungsfenster">
 
@@ -93,11 +93,13 @@ zurück.</p>
 <ul>
   <li><b>Min. Textlänge (Zeichen)</b> — Mindestlänge des kopierten Textes. Zu kurze Fragmente (standardmäßig weniger als 35 Zeichen) werden ignoriert.</li>
   <li><b>Popup-Zeit (Sek.)</b> — wie lange die Projektauswahl angezeigt wird, bevor sie sich automatisch schließt.</li>
-  <li><b>Fenstertransparenz (%)</b> — Transparenz der Projektauswahl.</li>
+  <li><b>Deckkraft des Statusfensters (%)</b> — Deckkraft von Statusfenster und Projektauswahl (30–100, Schritt 10).</li>
+  <li><b>Thema</b> — die Schaltfläche ☀ / 🌙 im Kopfbereich wechselt zwischen hellem und dunklem Thema. Gilt für alle Fenster und das App-Symbol.</li>
+  <li><b>Nach Updates suchen</b> — manuelle Prüfung gegen GitHub Releases. Beim Start läuft zusätzlich eine Hintergrundprüfung.</li>
   <li><b>Autostart</b> — ChatClipper zusammen mit Windows starten.</li>
   <li><b>Tray anzeigen</b> — stattdessen ein Tray-Symbol verwenden (siehe Abschnitt "Tray" unten).</li>
   <li><b>Pandoc</b> — Pandoc verwenden, um Markdown in Word umzuwandeln (falls installiert).</li>
-  <li><b>Quelle</b> — Quelle des Kopierens: Chrome oder eine andere Anwendung.</li>
+  <li><b>Quelle</b> — Quelle des Kopierens: <b>Browser</b> (Chrome, Opera, Edge, Brave, Vivaldi und andere Chromium-basierte Browser).</li>
   <li><b>Ton</b> — Ticken im Wartemodus. Klicken Sie auf "...", um einen Ton auszuwählen.</li>
   <li><b>Sprache</b> — Sprache der Oberfläche.</li>
 </ul>
@@ -113,12 +115,13 @@ zurück.</p>
   <li>Die Liste der aktiven Projekte — maximal 9 Einträge.</li>
   <li>Ein Klick auf einen Eintrag <b>macht ihn zum Hauptprojekt</b> — alle weiteren Einträge gehen dorthin.</li>
   <li>Wenn das Programm pausiert ist, erscheint ein rotes <b>PAUSE</b>-Siegel über dem Fenster.</li>
+  <li><b>Einzelklick auf das PAUSE-Siegel</b> hebt die Pause auf und setzt die Überwachung fort.</li>
 </ul>
 <p>Das Fenster ist verschiebbar. Wird es nicht berührt, schließt es sich nach einigen Sekunden automatisch.</p>
 
 <h2>Bedienung</h2>
 <ol>
-  <li>Öffnen Sie einen KI-Chat (DeepSeek, ChatGPT, Qwen, GLM und ähnliche) in Chrome.</li>
+  <li>Öffnen Sie einen KI-Chat (DeepSeek, ChatGPT, Qwen, GLM und ähnliche) in einem Chromium-basierten Browser (Chrome, Opera, Edge, Brave, Vivaldi).</li>
   <li>Kopieren Sie die Antwort auf eine von zwei Arten:
     <ul>
       <li>Klicken Sie die Schaltfläche <b>Kopieren</b> in der Chat-Oberfläche
