@@ -1,6 +1,6 @@
 # ChatClipper
 
-[![License](https://img.shields.io/badge/license-MIT-yellow)](../LICENSE) [![Python](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/) [![Platform](https://img.shields.io/badge/platform-windows-0078D6)](https://www.microsoft.com/windows) [![Kaspersky](https://img.shields.io/badge/Kaspersky-OpenTIP%20clear-brightgreen)](https://opentip.kaspersky.com/38FC30C3E1A40412F40FF27D5ACC2771C34422E928C2E85FBC23188D260F8109)
+[![License](https://img.shields.io/badge/license-MIT-yellow)](../LICENSE) [![Python](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/) [![Platform](https://img.shields.io/badge/platform-windows-0078D6)](https://www.microsoft.com/windows) [![Kaspersky](https://img.shields.io/badge/Kaspersky-OpenTIP%20clear-brightgreen)](https://opentip.kaspersky.com/089489EFE50FC601A0E35892849D1A60B53839C289C857B9031E7BCAAABC1225)
 
 **Deutsch** · [English](../README.md) · [Русский](README-ru.md) · [Español](README-es.md) · [日本語](README-ja.md)
 
@@ -34,7 +34,7 @@ erledigt das für Sie.
 
 ## ✨ Funktionen
 
-- Zwischenablage-Watcher bei Linksklick in Chrome
+- Zwischenablage-Watcher bei Linksklick in jedem Chromium-Browser (Chrome, Opera, Edge, Brave, Vivaldi)
 - Text an Projektdateien anhängen: docx, md, txt
 - Markdown-Parsing (mistune): Überschriften, fett, kursiv, Inline-Code,
   Codeblöcke, Listen, Zitate, Tabellen
@@ -44,6 +44,7 @@ erledigt das für Sie.
 - Popup-Fenster zur Projektauswahl (Deckkraft und Dauer konfigurierbar)
 - Klick auf ein Nicht-Hauptprojekt im Popup macht es still zum Hauptprojekt
 - Status-Popup beim Start; PAUSE-Stempel bei Pause
+- Einzelklick auf den PAUSE-Stempel setzt die Überwachung fort
 - Duplikatunterdrückung über CRC32-Ring (5 letzte Werte)
 - Letzte Schreiboperation rückgängig machen: entfernt sie aus der Quell-.docx und
   verschiebt sie in ein anderes Projekt; berücksichtigt undo_max_text_len und skip_secrets
@@ -55,10 +56,12 @@ erledigt das für Sie.
 - Autostart (standardmäßig aus)
 - Tray aktiviert (standardmäßig aus; nur Windows)
 - Einzelinstanz-Schutz (Mutex / Dateisperre)
+- Helle und dunkle Themen, umschaltbar im Kopfbereich der Einstellungen (☀ / 🌙)
+- Update-Prüfung: manuell und automatisch beim Start (GitHub Releases)
 - i18n: Englisch, Russisch, Deutsch, Spanisch, Japanisch
 - Automatische Erkennung aus OS-Locale beim ersten Start
 - Neue Sprache hinzufügen: `locales/<code>.json` mit `"lang.name"` ablegen
-- Fenstersymbol: chatclipper-light.ico
+- Fenstersymbol: chatclipper-light.ico / chatclipper-dark.ico (je nach Thema)
 
 ---
 
@@ -66,7 +69,7 @@ erledigt das für Sie.
 - Windows 10/11 (Linux / macOS — experimentell)
 - Python 3.10+
 - LibreOffice oder MS Word zum Bearbeiten von .docx
-- Chrome als Zwischenablagequelle
+- Chromium-Browser als Zwischenablagequelle (Chrome, Opera, Edge, Brave, Vivaldi)
 - Optional: Pandoc im PATH für Markdown → docx
 ---
 
@@ -104,7 +107,7 @@ Ordner `~/ChatClipper` (Benutzer-Home) mit einer leeren Word-Datei an,
 die bereits eine Überschrift enthält. Keine Konfiguration nötig —
 sofort loslegen.
 
-1. Öffnen Sie einen KI-Chat (DeepSeek, ChatGPT, Qwen, GLM und ähnliche) in Chrome.
+1. Öffnen Sie einen KI-Chat (DeepSeek, ChatGPT, Qwen, GLM und ähnliche) in einem Chromium-Browser.
 2. Kopieren Sie die Antwort auf eine von zwei Arten:
    - Klicken Sie die Schaltfläche **Kopieren** in der Chat-Oberfläche
      (empfohlen — so bleibt die HTML-Formatierung erhalten), oder
@@ -224,7 +227,7 @@ Wenn Sie sie manuell bearbeitet haben, überspringen Sie Undo und kopieren Sie d
 
 | Problem | Lösung |
 |---------|----------|
-| Text wird nicht gespeichert | Klicken Sie die Schaltfläche **Kopieren** im Chat oder markieren Sie den Text und drücken Sie **Strg+C**; Chrome muss das aktive Fenster sein |
+| Text wird nicht gespeichert | Klicken Sie die Schaltfläche **Kopieren** im Chat oder markieren Sie den Text und drücken Sie **Strg+C**; der Chromium-Browser muss das aktive Fenster sein |
 | Tickgeräusch stört | Deaktivieren Sie es unter Einstellungen → Sound, oder wählen Sie eine leisere .wav |
 | Datei wird nicht aktualisiert | Warten Sie ~5 s, oder schließen und öffnen Sie die Datei (gepufferte Schreibvorgänge) |
 | Tray-Symbol nicht sichtbar | Prüfen Sie die Windows-Tray-Einstellungen; stellen Sie sicher, dass ChatClipper läuft |

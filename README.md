@@ -1,6 +1,6 @@
 # ChatClipper
 
-[![License](https://img.shields.io/badge/license-MIT-yellow)](LICENSE) [![Python](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/) [![Platform](https://img.shields.io/badge/platform-windows-0078D6)](https://www.microsoft.com/windows) [![Kaspersky](https://img.shields.io/badge/Kaspersky-OpenTIP%20clear-brightgreen)](https://opentip.kaspersky.com/38FC30C3E1A40412F40FF27D5ACC2771C34422E928C2E85FBC23188D260F8109)
+[![License](https://img.shields.io/badge/license-MIT-yellow)](LICENSE) [![Python](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/) [![Platform](https://img.shields.io/badge/platform-windows-0078D6)](https://www.microsoft.com/windows) [![Kaspersky](https://img.shields.io/badge/Kaspersky-OpenTIP%20clear-brightgreen)](https://opentip.kaspersky.com/089489EFE50FC601A0E35892849D1A60B53839C289C857B9031E7BCAAABC1225)
 
 **English** · [Русский](docs/README-ru.md) · [Deutsch](docs/README-de.md) · [Español](docs/README-es.md) · [日本語](docs/README-ja.md)
 
@@ -33,7 +33,7 @@ file. No more manual copy-paste — the program does it for you.
 
 ## ✨ Features
 
-- Clipboard watcher on LMB click in Chrome
+- Clipboard watcher on LMB click in any Chromium browser (Chrome, Opera, Edge, Brave, Vivaldi)
 - Append text to project files: docx, md, txt
 - Markdown parsing (mistune): headings, bold, italic, inline code,
   code blocks, lists, quotes, tables
@@ -43,6 +43,7 @@ file. No more manual copy-paste — the program does it for you.
 - Popup window to pick a project (opacity and duration configurable)
 - Clicking a non-main project in the popup silently makes it main
 - Startup status popup; PAUSE stamp when paused
+- Single click on the PAUSE stamp resumes tracking
 - Duplicate suppression via CRC32 ring (5 last values)
 - Undo last write: removes it from source .docx and moves it to another
   project; respects undo_max_text_len and skip_secrets
@@ -54,10 +55,12 @@ file. No more manual copy-paste — the program does it for you.
 - Autostart (off by default)
 - Tray enabled (off by default; Windows only)
 - Single instance guard (mutex / file lock)
+- Light and dark themes, switchable from the settings header (☀ / 🌙)
+- Update check: manual button and background check at startup (GitHub Releases)
 - i18n: English, Russian, German, Spanish, Japanese
 - Auto-detect from OS locale on first run
 - Add a new language by dropping `locales/<code>.json` with `"lang.name"`
-- Window icon: chatclipper-light.ico
+- Window icon: chatclipper-light.ico / chatclipper-dark.ico (follows the theme)
 
 ---
 
@@ -65,7 +68,7 @@ file. No more manual copy-paste — the program does it for you.
 - Windows 10/11 (Linux / macOS — experimental)
 - Python 3.10+
 - LibreOffice or MS Word for editing .docx
-- Chrome as clipboard source
+- A Chromium-based browser as clipboard source (Chrome, Opera, Edge, Brave, Vivaldi)
 - Optional: Pandoc in PATH for Markdown → docx
 ---
 
@@ -102,7 +105,7 @@ On first launch ChatClipper automatically creates a default project at
 `~/ChatClipper` (your user home folder) with an empty Word file that
 already contains a heading. No setup needed — just start copying.
 
-1. Open a chat with an AI (DeepSeek, ChatGPT, Qwen, GLM and similar) in Chrome.
+1. Open a chat with an AI (DeepSeek, ChatGPT, Qwen, GLM and similar) in a Chromium-based browser.
 2. Copy the reply in one of two ways:
    - click the **Copy** button shown in the chat UI (recommended — it
      also preserves HTML formatting), or
@@ -113,6 +116,12 @@ already contains a heading. No setup needed — just start copying.
    by about 5 seconds).
 5. To add more projects: ChatClipper panel → **Settings** → **Add**.
    Set one project as main — writes go there by default.
+6. To switch theme: **Settings** → button ☀ / 🌙 in the header. The
+   theme applies to all windows (settings, panel, popup, dialogs) and
+   the app icon.
+7. To check for updates: **Settings** → **Check for updates**, or wait
+   for the automatic check at startup. The update dialog links to the
+   latest GitHub release.
 
 ---
 
@@ -221,7 +230,7 @@ If you did edit it manually, skip undo and copy the text again.
 
 | Problem | Solution |
 |---------|----------|
-| Text is not saved | Click the **Copy** button in the chat, or select text and press **Ctrl+C**; make sure Chrome is the active window |
+| Text is not saved | Click the **Copy** button in the chat, or select text and press **Ctrl+C**; make sure the Chromium browser is the active window |
 | File is not updated | Wait ~5 s, or close and reopen the file (buffered writes) |
 | Ticking sound bothers me | Disable it in Settings → Sound, or pick a quieter .wav |
 | Tray icon not visible | Check Windows tray settings; ensure ChatClipper is running |

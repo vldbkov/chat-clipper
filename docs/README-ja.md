@@ -1,6 +1,6 @@
 # ChatClipper
 
-[![License](https://img.shields.io/badge/license-MIT-yellow)](../LICENSE) [![Python](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/) [![Platform](https://img.shields.io/badge/platform-windows-0078D6)](https://www.microsoft.com/windows) [![Kaspersky](https://img.shields.io/badge/Kaspersky-OpenTIP%20clear-brightgreen)](https://opentip.kaspersky.com/38FC30C3E1A40412F40FF27D5ACC2771C34422E928C2E85FBC23188D260F8109)
+[![License](https://img.shields.io/badge/license-MIT-yellow)](../LICENSE) [![Python](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/) [![Platform](https://img.shields.io/badge/platform-windows-0078D6)](https://www.microsoft.com/windows) [![Kaspersky](https://img.shields.io/badge/Kaspersky-OpenTIP%20clear-brightgreen)](https://opentip.kaspersky.com/089489EFE50FC601A0E35892849D1A60B53839C289C857B9031E7BCAAABC1225)
 
 **日本語** · [English](../README.md) · [Русский](README-ru.md) · [Deutsch](README-de.md) · [Español](README-es.md)
 
@@ -32,7 +32,7 @@ ChatClipper は、AI アシスタント（DeepSeek、ChatGPT など）とのチ�
 
 ## ✨ 機能
 
-- Chrome での左クリックによるクリップボード監視
+- 任意の Chromium ブラウザ（Chrome、Opera、Edge、Brave、Vivaldi）での左クリックによるクリップボード監視
 - プロジェクト ファイルへのテキスト追記：docx、md、txt
 - Markdown 解析（mistune）：見出し、太字、斜体、インライン コード、
   コード ブロック、リスト、引用、表
@@ -42,6 +42,7 @@ ChatClipper は、AI アシスタント（DeepSeek、ChatGPT など）とのチ�
 - プロジェクト選択用ポップアップ ウィンドウ（不透明度と表示時間を設定可能）
 - ポップアップで非メイン プロジェクトをクリックすると、通知なしでそれをメインにします
 - 起動時ステータス ポップアップ。一時停止時は PAUSE スタンプ
+- PAUSE スタンプを 1 回クリックすると追跡を再開します
 - CRC32 リングによる重複抑制（直近 5 件）
 - 最後の書き込みを元に戻す：元の .docx から削除し、別のプロジェクトへ移動します。
   undo_max_text_len と skip_secrets を尊重します
@@ -53,10 +54,12 @@ ChatClipper は、AI アシスタント（DeepSeek、ChatGPT など）とのチ�
 - 自動起動（既定ではオフ）
 - トレイ有効（既定ではオフ、Windows のみ）
 - 単一インスタンス ガード（ミューテックス / ファイル ロック）
+- ライト／ダーク テーマ、設定ヘッダーのボタン（☀ / 🌙）で切替可能
+- アップデート確認：手動ボタンと起動時のバックグラウンド確認（GitHub Releases）
 - i18n：英語、ロシア語、ドイツ語、スペイン語、日本語
 - 初回起動時に OS ロケールから自動検出
 - 新しい言語を追加するには `"lang.name"` を含む `locales/<code>.json` を置くだけ
-- ウィンドウ アイコン：chatclipper-light.ico
+- ウィンドウ アイコン：chatclipper-light.ico / chatclipper-dark.ico（テーマに連動）
 
 ---
 
@@ -64,7 +67,7 @@ ChatClipper は、AI アシスタント（DeepSeek、ChatGPT など）とのチ�
 - Windows 10/11（Linux / macOS — 実験的）
 - Python 3.10+
 - .docx を編集するための LibreOffice または MS Word
-- クリップボード ソースとしての Chrome
+- クリップボード ソースとしての Chromium ブラウザ（Chrome、Opera、Edge、Brave、Vivaldi）
 - オプション：Markdown → docx 用の Pandoc（PATH 内）
 ---
 
@@ -102,7 +105,7 @@ Python のインストールは不要です。
 空の Word ファイルを用意します。設定は不要で、すぐにコピーを
 始められます。
 
-1. Chrome で AI チャット（DeepSeek、ChatGPT、Qwen、GLM など）を開きます。
+1. Chromium ブラウザで AI チャット（DeepSeek、ChatGPT、Qwen、GLM など）を開きます。
 2. 返信を次のいずれかの方法でコピーします：
    - チャット UI の **コピー** ボタンをクリック（推奨 — HTML の
      書式が保持されます）、または
@@ -222,7 +225,7 @@ ChatClipper は最後の書き込みで追加した段落数を記憶してお�
 
 | 問題 | 解決策 |
 |---------|----------|
-| テキストが保存されない | チャットの **コピー** ボタンをクリックするか、テキストを選択して **Ctrl+C** を押してください。Chrome がアクティブ ウィンドウであることを確認してください |
+| テキストが保存されない | チャットの **コピー** ボタンをクリックするか、テキストを選択して **Ctrl+C** を押してください。Chromium ブラウザがアクティブ ウィンドウであることを確認してください |
 | カチカチ音が気になる | 設定 → サウンド で無効にするか、より静かな .wav を選択してください |
 | ファイルが更新されない | 約 5 秒待つか、ファイルを閉じて再度開いてください（バッファ付き書き込み） |
 | トレイ アイコンが見えない | Windows のトレイ設定を確認し、ChatClipper が実行中であることを確認してください |

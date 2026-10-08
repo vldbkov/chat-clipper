@@ -1,6 +1,6 @@
 # ChatClipper
 
-[![License](https://img.shields.io/badge/license-MIT-yellow)](../LICENSE) [![Python](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/) [![Platform](https://img.shields.io/badge/platform-windows-0078D6)](https://www.microsoft.com/windows) [![Kaspersky](https://img.shields.io/badge/Kaspersky-OpenTIP%20clear-brightgreen)](https://opentip.kaspersky.com/38FC30C3E1A40412F40FF27D5ACC2771C34422E928C2E85FBC23188D260F8109)
+[![License](https://img.shields.io/badge/license-MIT-yellow)](../LICENSE) [![Python](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/) [![Platform](https://img.shields.io/badge/platform-windows-0078D6)](https://www.microsoft.com/windows) [![Kaspersky](https://img.shields.io/badge/Kaspersky-OpenTIP%20clear-brightgreen)](https://opentip.kaspersky.com/089489EFE50FC601A0E35892849D1A60B53839C289C857B9031E7BCAAABC1225)
 
 **Español** · [English](../README.md) · [Русский](README-ru.md) · [Deutsch](README-de.md) · [日本語](README-ja.md)
 
@@ -32,7 +32,7 @@ Se acabó el copiar y pegar manual: el programa lo hace por ti.
 
 ## ✨ Características
 
-- Vigilante del portapapeles al hacer clic con el botón izquierdo en Chrome
+- Vigilante del portapapeles al hacer clic con el botón izquierdo en cualquier navegador Chromium (Chrome, Opera, Edge, Brave, Vivaldi)
 - Añadir texto a archivos de proyecto: docx, md, txt
 - Análisis de Markdown (mistune): encabezados, negrita, cursiva, código en línea,
   bloques de código, listas, citas, tablas
@@ -42,6 +42,7 @@ Se acabó el copiar y pegar manual: el programa lo hace por ti.
 - Ventana emergente para elegir proyecto (opacidad y duración configurables)
 - Al hacer clic en un proyecto no principal en la ventana emergente, se convierte en principal silenciosamente
 - Ventana emergente de estado al inicio; marca PAUSE cuando está en pausa
+- Un solo clic en el sello PAUSE reanuda el seguimiento
 - Supresión de duplicados mediante anillo CRC32 (5 últimos valores)
 - Deshacer la última escritura: la elimina del .docx de origen y la mueve a otro
   proyecto; respeta undo_max_text_len y skip_secrets
@@ -53,10 +54,12 @@ Se acabó el copiar y pegar manual: el programa lo hace por ti.
 - Inicio automático (desactivado por defecto)
 - Bandeja activada (desactivada por defecto; solo Windows)
 - Protección de instancia única (mutex / bloqueo de archivo)
+- Temas claro y oscuro, conmutables en el encabezado de configuración (☀ / 🌙)
+- Comprobación de actualizaciones: manual y automática al inicio (GitHub Releases)
 - i18n: inglés, ruso, alemán, español, japonés
 - Detección automática desde la configuración regional del SO en el primer inicio
 - Añadir un idioma nuevo colocando `locales/<code>.json` con `"lang.name"`
-- Icono de ventana: chatclipper-light.ico
+- Icono de ventana: chatclipper-light.ico / chatclipper-dark.ico (según el tema)
 
 ---
 
@@ -64,7 +67,7 @@ Se acabó el copiar y pegar manual: el programa lo hace por ti.
 - Windows 10/11 (Linux / macOS — experimental)
 - Python 3.10+
 - LibreOffice o MS Word para editar .docx
-- Chrome como fuente del portapapeles
+- Navegador Chromium como fuente del portapapeles (Chrome, Opera, Edge, Brave, Vivaldi)
 - Opcional: Pandoc en PATH para Markdown → docx
 ---
 
@@ -102,7 +105,7 @@ en `~/ChatClipper` (carpeta personal del usuario) con un archivo Word
 vacío que ya contiene un encabezado. No hace falta configurar nada —
 puedes empezar a copiar de inmediato.
 
-1. Abre un chat con IA (DeepSeek, ChatGPT, Qwen, GLM y similares) en Chrome.
+1. Abre un chat con IA (DeepSeek, ChatGPT, Qwen, GLM y similares) en un navegador Chromium.
 2. Copia la respuesta de una de dos formas:
    - haz clic en el botón **Copiar** de la interfaz del chat (recomendado
      — así se conserva el formato HTML), o
@@ -222,7 +225,7 @@ Si lo editaste manualmente, omite deshacer y copia el texto de nuevo.
 
 | Problema | Solución |
 |---------|----------|
-| El texto no se guarda | Haz clic en el botón **Copiar** del chat o selecciona el texto y pulsa **Ctrl+C**; asegúrate de que Chrome sea la ventana activa |
+| El texto no se guarda | Haz clic en el botón **Copiar** del chat o selecciona el texto y pulsa **Ctrl+C**; asegúrate de que el navegador Chromium sea la ventana activa |
 | Molesta el tic-tac | Desactívalo en Configuración → Sonido, o elige un .wav más silencioso |
 | El archivo no se actualiza | Espera ~5 s, o cierra y vuelve a abrir el archivo (escrituras en búfer) |
 | El icono de bandeja no se ve | Revisa la configuración de bandeja de Windows; asegúrate de que ChatClipper esté en ejecución |

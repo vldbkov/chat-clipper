@@ -1,6 +1,6 @@
 # ChatClipper
 
-[![License](https://img.shields.io/badge/license-MIT-yellow)](../LICENSE) [![Python](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/) [![Platform](https://img.shields.io/badge/platform-windows-0078D6)](https://www.microsoft.com/windows) [![Kaspersky](https://img.shields.io/badge/Kaspersky-OpenTIP%20clear-brightgreen)](https://opentip.kaspersky.com/38FC30C3E1A40412F40FF27D5ACC2771C34422E928C2E85FBC23188D260F8109)
+[![License](https://img.shields.io/badge/license-MIT-yellow)](../LICENSE) [![Python](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/) [![Platform](https://img.shields.io/badge/platform-windows-0078D6)](https://www.microsoft.com/windows) [![Kaspersky](https://img.shields.io/badge/Kaspersky-OpenTIP%20clear-brightgreen)](https://opentip.kaspersky.com/089489EFE50FC601A0E35892849D1A60B53839C289C857B9031E7BCAAABC1225)
 
 **Русский** · [English](../README.md) · [Deutsch](README-de.md) · [Español](README-es.md) · [日本語](README-ja.md)
 
@@ -32,7 +32,7 @@ ChatClipper — лёгкая утилита, которая автоматиче
 
 ## ✨ Возможности
 
-- Наблюдатель буфера обмена по клику ЛКМ в Chrome
+- Наблюдатель буфера обмена по клику ЛКМ в любом Chromium-браузере (Chrome, Opera, Edge, Brave, Vivaldi)
 - Добавление текста в файлы проектов: docx, md, txt
 - Разбор Markdown (mistune): заголовки, полужирный, курсив, встроенный код,
   блоки кода, списки, цитаты, таблицы
@@ -42,6 +42,7 @@ ChatClipper — лёгкая утилита, которая автоматиче
 - Всплывающее окно выбора проекта (прозрачность и длительность настраиваются)
 - Клик по неосновному проекту во всплывающем окне без уведомления делает его основным
 - Всплывающее окно статуса при запуске; отметка PAUSE при паузе
+- Одиночный клик по штампу PAUSE возобновляет отслеживание
 - Подавление дубликатов через кольцо CRC32 (5 последних значений)
 - Отмена последней записи: удаляет её из исходного .docx и переносит в другой
   проект; учитывает undo_max_text_len и skip_secrets
@@ -53,10 +54,12 @@ ChatClipper — лёгкая утилита, которая автоматиче
 - Автозапуск (по умолчанию выключен)
 - Трей включён (по умолчанию выключен; только Windows)
 - Защита от второго экземпляра (мьютекс / файловая блокировка)
+- Светлая и тёмная темы, переключаются в шапке настроек (☀ / 🌙)
+- Проверка обновлений: вручную и в фоне при старте (GitHub Releases)
 - i18n: английский, русский, немецкий, испанский, японский
 - Автоопределение по локали ОС при первом запуске
 - Добавление нового языка: просто положите `locales/<code>.json` с `"lang.name"`
-- Значок окна: chatclipper-light.ico
+- Значок окна: chatclipper-light.ico / chatclipper-dark.ico (по теме)
 
 ---
 
@@ -64,7 +67,7 @@ ChatClipper — лёгкая утилита, которая автоматиче
 - Windows 10/11 (Linux / macOS — экспериментально)
 - Python 3.10+
 - LibreOffice или MS Word для редактирования .docx
-- Chrome как источник буфера обмена
+- Chromium-браузер как источник буфера обмена (Chrome, Opera, Edge, Brave, Vivaldi)
 - Необязательно: Pandoc в PATH для Markdown → docx
 ---
 
@@ -101,7 +104,7 @@ Python устанавливать не нужно.
 `~/ChatClipper` (домашняя папка пользователя) с пустым файлом Word,
 в котором уже есть заголовок. Настройка не требуется — можно сразу копировать.
 
-1. Откройте чат с ИИ (DeepSeek, ChatGPT, Qwen, GLM и подобные) в Chrome.
+1. Откройте чат с ИИ (DeepSeek, ChatGPT, Qwen, GLM и подобные) в Chromium-браузере.
 2. Скопируйте ответ одним из двух способов:
    - нажмите кнопку **Копировать** в интерфейсе чата (рекомендуется —
      так сохраняется HTML-форматирование), или
@@ -220,7 +223,7 @@ ChatClipper запоминает, сколько абзацев он добав�
 
 | Проблема | Решение |
 |---------|----------|
-| Текст не сохраняется | Нажмите кнопку **Копировать** в чате или выделите текст и нажмите **Ctrl+C**; убедитесь, что Chrome — активное окно |
+| Текст не сохраняется | Нажмите кнопку **Копировать** в чате или выделите текст и нажмите **Ctrl+C**; убедитесь, что Chromium-браузер — активное окно |
 | Мешает тиканье | Отключите в Настройки → Sound, либо выберите более тихий .wav |
 | Файл не обновляется | Подождите ~5 с или закройте и откройте файл (буферизованная запись) |
 | Значок в трее не виден | Проверьте настройки трея Windows; убедитесь, что ChatClipper запущен |
