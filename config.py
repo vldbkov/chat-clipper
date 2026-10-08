@@ -40,6 +40,7 @@ PENDING_DIR = os.path.join(DATA_DIR, "pending")
 HASHES_PATH = os.path.join(DATA_DIR, "hashes.json")
 LAST_BUFFERS_PATH = os.path.join(DATA_DIR, "last_buffers.json")
 ICON_PATH = os.path.join(RESOURCE_DIR, "chatclipper-light.ico")
+ICON_PATH_DARK = os.path.join(RESOURCE_DIR, "chatclipper-dark.ico")
 IPC_TOKEN_PATH = os.path.join(DATA_DIR, "ipc_token")
 
 DEFAULT_MIN_TEXT_LEN = 50
@@ -92,6 +93,7 @@ class AppConfig:
     use_pandoc: bool = DEFAULT_USE_PANDOC
     sound_enabled: bool = DEFAULT_SOUND_ENABLED
     sound_name: str = DEFAULT_SOUND_NAME
+    dark_theme: bool = False
 
     # -------- serialization --------
     def to_dict(self) -> dict:
@@ -125,6 +127,7 @@ class AppConfig:
             use_pandoc=d.get("use_pandoc", DEFAULT_USE_PANDOC),
             sound_enabled=d.get("sound_enabled", DEFAULT_SOUND_ENABLED),
             sound_name=d.get("sound_name", DEFAULT_SOUND_NAME),
+            dark_theme=d.get("dark_theme", False),
         )
 
     # -------- project access --------
@@ -204,6 +207,23 @@ def _ensure_default_project(cfg: AppConfig) -> None:
     log.info("first run: created default project at %s", folder)
 
 
+# Ensure exactly one main project exists, and it is always active
+def _normalize_main_project(cfg: AppConfig) -> None:
+    if not cfg.projects:
+        return
+    main = cfg.get_project(cfg.main_project) if cfg.main_project else None
+    if main is None:
+        active = [p for p in cfg.projects if p.active]
+        target = active[0] if active else cfg.projects[0]
+    else:
+        target = main
+    if not target.active:
+        target.active = True
+    if cfg.main_project != target.name:
+        log.info("main_project normalized to '%s'", target.name)
+        cfg.main_project = target.name
+
+
 # Load config from disk; auto-create default project if missing
 def load_config() -> AppConfig:
     if not os.path.exists(CONFIG_PATH):
@@ -211,6 +231,7 @@ def load_config() -> AppConfig:
         cfg = AppConfig()
         cfg.locale = _resolve_default_locale()
         _ensure_default_project(cfg)
+        _normalize_main_project(cfg)
         save_config(cfg)
         return cfg
     try:
@@ -223,12 +244,14 @@ def load_config() -> AppConfig:
         if not cfg.projects:
             _ensure_default_project(cfg)
             save_config(cfg)
+        _normalize_main_project(cfg)
         return cfg
     except Exception as e:
         log.exception("Error reading config.json: %s", e)
         cfg = AppConfig()
         cfg.locale = _resolve_default_locale()
         _ensure_default_project(cfg)
+        _normalize_main_project(cfg)
         return cfg
 
 
