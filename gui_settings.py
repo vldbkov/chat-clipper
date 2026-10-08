@@ -11,9 +11,10 @@ from docx import Document
 from logger import log
 from config import Project, save_config, ensure_dirs, APP_VERSION
 from platform_utils import open_file, IS_WINDOWS, is_pandoc_available
-from ui_helpers import center_window, apply_icon, Tooltip
+from ui_helpers import center_window, apply_icon, apply_theme, Tooltip, show_warning, ask_yesno
 from sources.source_factory import list_sources
 from ipc_client import send_ipc_command
+from theme import get_palette
 import i18n
 import autostart
 from updater import check_for_update
@@ -51,13 +52,16 @@ class SettingsWindow(tk.Toplevel):
     def __init__(self, parent, app_state):
         super().__init__(parent)
         self.withdraw()
-        apply_icon(self)
+        apply_icon(self, dark_theme=bool(getattr(app_state.config, "dark_theme", False)))
         self.app_state = app_state
         self.cfg = app_state.config
+        self.palette = get_palette(bool(getattr(self.cfg, "dark_theme", False)))
         self.title("ChatClipper v" + APP_VERSION + " " + i18n.t("settings.title_suffix"))
         self.geometry("620x380")
         self.minsize(600, 370)
+        self._apply_ttk_style()
         self._build()
+        self._paint_tk_widgets()
         self._load_projects()
         self._load_params()
         self._snapshot_state()
@@ -69,6 +73,10 @@ class SettingsWindow(tk.Toplevel):
         self.lift()
         self.attributes("-topmost", True)
         self.after(300, lambda: self.attributes("-topmost", False))
+        try:
+            self.grab_set()
+        except Exception:
+            pass
         try:
             self.focus_force()
         except Exception:
@@ -84,7 +92,7 @@ class SettingsWindow(tk.Toplevel):
         if os.path.exists(path):
             webbrowser.open(Path(path).resolve().as_uri())
         else:
-            messagebox.showwarning("ChatClipper", "User manual not found")
+            show_warning(self, "ChatClipper", "User manual not found", dark=self.cfg.dark_theme)
 
     # Open feedback form in default browser
     def _on_feedback(self):
@@ -153,6 +161,86 @@ class SettingsWindow(tk.Toplevel):
         self.wait_window(dlg)
 
     # Build UI
+    # Apply ttk style (clam) colored by current palette
+    def _apply_ttk_style(self):
+        pal = self.palette
+        style = ttk.Style(self)
+        try:
+            style.theme_use("clam")
+        except Exception:
+            pass
+        style.configure(".", background=pal["bg"], foreground=pal["fg"], fieldbackground=pal["field_bg"])
+        style.configure("TFrame", background=pal["bg"])
+        style.configure("TLabel", background=pal["bg"], foreground=pal["fg"])
+        style.configure("TButton", background=pal["btn"], foreground=pal["fg"])
+        style.map("TButton", background=[("active", pal["btn_hover"])])
+        style.configure("TCheckbutton", background=pal["bg"], foreground=pal["fg"])
+        style.map("TCheckbutton", background=[("active", pal["bg"])])
+        style.configure("TEntry", fieldbackground=pal["entry_bg"], foreground=pal["entry_fg"])
+        style.configure("TSpinbox", fieldbackground=pal["entry_bg"], foreground=pal["entry_fg"], background=pal["btn"])
+        style.configure("TCombobox", fieldbackground=pal["entry_bg"], foreground=pal["entry_fg"], background=pal["btn"])
+        style.configure("Treeview", background=pal["tree_bg"], fieldbackground=pal["tree_bg"], foreground=pal["tree_fg"])
+        style.map("Treeview", background=[("selected", pal["select_bg"])], foreground=[("selected", pal["select_fg"])])
+        style.configure("Treeview.Heading", background=pal["btn"], foreground=pal["fg"])
+        style.configure("TScrollbar", background=pal["btn"], troughcolor=pal["trough"])
+        style.map("TCombobox",
+                  fieldbackground=[("readonly", pal["entry_bg"]), ("!disabled", pal["entry_bg"])],
+                  foreground=[("readonly", pal["entry_fg"]), ("!disabled", pal["entry_fg"])],
+                  background=[("readonly", pal["btn"]), ("!disabled", pal["btn"])])
+        try:
+            self.option_add("*TCombobox*Listbox.background", pal["entry_bg"])
+            self.option_add("*TCombobox*Listbox.foreground", pal["entry_fg"])
+            self.option_add("*TCombobox*Listbox.selectBackground", pal["select_bg"])
+            self.option_add("*TCombobox*Listbox.selectForeground", pal["select_fg"])
+        except Exception:
+            pass
+        try:
+            self.configure(bg=pal["bg"])
+        except Exception:
+            pass
+        self._paint_tk_widgets()
+
+    # Repaint tk widgets (Checkbutton, Combobox dropdown) with current palette
+    def _paint_tk_widgets(self):
+        pal = self.palette
+        for chk in (getattr(self, "chk_autostart", None), getattr(self, "chk_tray", None),
+                    getattr(self, "chk_pandoc", None), getattr(self, "chk_sound", None)):
+            if chk is None:
+                continue
+            try:
+                chk.configure(bg=pal["bg"], fg=pal["fg"],
+                              activebackground=pal["bg"], activeforeground=pal["fg"],
+                              selectcolor=pal["btn"],
+                              highlightthickness=0, bd=0)
+            except Exception:
+                pass
+        for cb in (getattr(self, "cb_language", None), getattr(self, "cb_source", None),
+                   getattr(self, "entry_alpha", None)):
+            if cb is None:
+                continue
+            try:
+                cb.configure(background=pal["btn"], foreground=pal["entry_fg"])
+            except Exception:
+                pass
+
+    # Toggle dark/light theme; applies to all windows
+    def _on_toggle_theme(self):
+        self.cfg.dark_theme = not bool(getattr(self.cfg, "dark_theme", False))
+        save_config(self.cfg)
+        self.palette = get_palette(self.cfg.dark_theme)
+        self._apply_ttk_style()
+        self._paint_tk_widgets()
+        apply_icon(self, dark_theme=self.cfg.dark_theme)
+        try:
+            self.btn_theme.configure(text="☀" if self.cfg.dark_theme else "🌙")
+        except Exception:
+            pass
+        try:
+            self.tree.tag_configure("main", font=("Segoe UI", 9, "bold"), foreground=self.palette["highlight_fg"])
+        except Exception:
+            pass
+        self._load_projects()
+
     def _build(self):
         top = ttk.Frame(self, padding=(8, 8, 8, 0))
         top.pack(fill="x")
@@ -169,6 +257,9 @@ class SettingsWindow(tk.Toplevel):
         self.btn_check_update = ttk.Button(top, text="🔄 " + i18n.t("settings.btn_check_update"), command=self._on_check_update)
         self.btn_check_update.pack(side="right", padx=(0, 4))
         Tooltip(self.btn_check_update, "Check for updates")
+        self.btn_theme = ttk.Button(top, text="☀" if getattr(self.cfg, "dark_theme", False) else "🌙", command=self._on_toggle_theme, width=3)
+        self.btn_theme.pack(side="right", padx=(0, 4))
+        Tooltip(self.btn_theme, "Toggle theme")
 
         mid = ttk.Frame(self, padding=8)
         mid.pack(fill="x")
@@ -185,6 +276,7 @@ class SettingsWindow(tk.Toplevel):
         self.tree.column("docx", width=220)
         self.tree.column("active", width=0, minwidth=0, stretch=False)
         self.tree.column("main", width=0, minwidth=0, stretch=False)
+        self.tree.tag_configure("main", font=("Segoe UI", 9, "bold"), foreground=self.palette["highlight_fg"])
         self.tree.tag_configure("active", font=("Segoe UI", 9, "bold"))
         self.tree.tag_configure("inactive", font=("Segoe UI", 9, "normal"))
         self.tree.pack(side="left", fill="both", expand=True)
@@ -205,8 +297,8 @@ class SettingsWindow(tk.Toplevel):
         ttk.Button(btns, text=i18n.t("settings.btn_set_main"), command=self._on_set_main).grid(row=0, column=3, sticky="ew", padx=4)
         ttk.Button(btns, text=i18n.t("settings.btn_toggle_active"), command=self._on_toggle_active).grid(row=0, column=4, sticky="ew", padx=4)
 
-        self.lbl_status = ttk.Label(self, text="", padding=(8, 0, 8, 8))
-        self.lbl_status.pack(fill="x")
+        self.status_row = ttk.Frame(self, padding=(8, 0, 8, 8))
+        self.status_row.pack(fill="x")
 
         params = ttk.Frame(self, padding=8)
         params.pack(fill="x", padx=8, pady=4)
@@ -297,13 +389,34 @@ class SettingsWindow(tk.Toplevel):
         base = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         main = self.cfg.main_project or i18n.t("settings.status_none")
         active_names = [p.name for p in self.cfg.projects if p.active]
-        active_str = ", ".join(active_names) if active_names else i18n.t("settings.status_no_active")
-        self.lbl_status.configure(text=i18n.t("settings.status_main") + ": " + main + "    |    " + i18n.t("settings.status_active") + ": " + active_str)
-        for p in self.cfg.projects:
+        for child in self.status_row.winfo_children():
+            child.destroy()
+        ttk.Label(self.status_row, text=i18n.t("settings.status_main") + ": ").pack(side="left")
+        ttk.Label(self.status_row, text=main, font=("Segoe UI", 9, "bold"), foreground="#FF8000").pack(side="left")
+        ttk.Label(self.status_row, text="    |    " + i18n.t("settings.status_active") + ": ").pack(side="left")
+        if active_names:
+            for idx, name in enumerate(active_names):
+                sep = ", " if idx > 0 else ""
+                ttk.Label(self.status_row, text=sep + name, font=("Segoe UI", 9, "bold")).pack(side="left")
+        else:
+            ttk.Label(self.status_row, text=i18n.t("settings.status_no_active")).pack(side="left")
+        main_name = self.cfg.main_project
+        def sort_key(proj):
+            if proj.name == main_name:
+                return (0, proj.name.lower())
+            if proj.active:
+                return (1, proj.name.lower())
+            return (2, proj.name.lower())
+        for p in sorted(self.cfg.projects, key=sort_key):
             folder = p.folder
             if folder.upper().startswith(base.upper()):
                 folder = "~" + folder[len(base):]
-            tag = "active" if p.active else "inactive"
+            if p.name == main_name:
+                tag = "main"
+            elif p.active:
+                tag = "active"
+            else:
+                tag = "inactive"
             self.tree.insert("", "end", values=(p.name, folder, p.docx_name, "", ""), tags=(tag,))
 
     # Load capture params
@@ -427,7 +540,7 @@ class SettingsWindow(tk.Toplevel):
     def _open_folder(self, project):
         folder = project.folder
         if not os.path.isdir(folder):
-            messagebox.showwarning("ChatClipper", i18n.t("msg.file_not_found") + folder)
+            show_warning(self, "ChatClipper", i18n.t("msg.file_not_found") + folder, dark=self.cfg.dark_theme)
             return
         open_file(folder)
 
@@ -435,14 +548,14 @@ class SettingsWindow(tk.Toplevel):
     def _open_docx(self, project):
         path = project.docx_path
         if not os.path.exists(path):
-            messagebox.showwarning("ChatClipper", i18n.t("msg.file_not_found") + path)
+            show_warning(self, "ChatClipper", i18n.t("msg.file_not_found") + path, dark=self.cfg.dark_theme)
             return
         try:
             open_file(path)
             log.info("Opened .docx: %s", path)
         except Exception as e:
             log.exception("Failed to open .docx %s: %s", path, e)
-            messagebox.showerror("ChatClipper", i18n.t("msg.cannot_open_file"))
+            show_warning(self, "ChatClipper", i18n.t("msg.cannot_open_file"), dark=self.cfg.dark_theme)
 
     # Add project
     def _on_add(self):
@@ -450,7 +563,7 @@ class SettingsWindow(tk.Toplevel):
         self.wait_window(dlg.win)
         if dlg.result:
             if self.cfg.get_project(dlg.result.name):
-                messagebox.showerror("ChatClipper", i18n.t("msg.project_exists"))
+                show_warning(self, "ChatClipper", i18n.t("msg.project_exists"), dark=self.cfg.dark_theme)
                 return
             self.cfg.projects.append(dlg.result)
             if not self.cfg.main_project:
@@ -483,7 +596,7 @@ class SettingsWindow(tk.Toplevel):
         p = self._selected_project()
         if not p:
             return
-        if not messagebox.askyesno("ChatClipper", i18n.t("msg.delete_confirm") + p.name + "\"?"):
+        if not ask_yesno(self, "ChatClipper", i18n.t("msg.delete_confirm") + p.name + "\"?", dark=self.cfg.dark_theme):
             return
         remaining = [x for x in self.cfg.projects if x.name != p.name]
         if self.cfg.main_project == p.name:
@@ -493,11 +606,11 @@ class SettingsWindow(tk.Toplevel):
                     new_main = x.name
                     break
             if new_main is None:
-                messagebox.showwarning("ChatClipper", i18n.t("msg.cannot_delete_main"))
+                show_warning(self, "ChatClipper", i18n.t("msg.cannot_delete_main"), dark=self.cfg.dark_theme)
                 return
             self.cfg.main_project = new_main
         if not any(x.active for x in remaining):
-            messagebox.showwarning("ChatClipper", i18n.t("msg.cannot_delete_last"))
+            show_warning(self, "ChatClipper", i18n.t("msg.cannot_delete_last"), dark=self.cfg.dark_theme)
             return
         self.cfg.projects = remaining
         self._load_projects()
@@ -509,7 +622,7 @@ class SettingsWindow(tk.Toplevel):
         if not p:
             return
         if not p.active:
-            messagebox.showwarning("ChatClipper", i18n.t("msg.cannot_make_inactive_main"))
+            show_warning(self, "ChatClipper", i18n.t("msg.cannot_make_inactive_main"), dark=self.cfg.dark_theme)
             return
         self.cfg.main_project = p.name
         self._load_projects()
@@ -521,12 +634,12 @@ class SettingsWindow(tk.Toplevel):
         if not p:
             return
         if p.active and p.name == self.cfg.main_project:
-            messagebox.showwarning("ChatClipper", i18n.t("msg.cannot_deactivate_main"))
+            show_warning(self, "ChatClipper", i18n.t("msg.cannot_deactivate_main"), dark=self.cfg.dark_theme)
             return
         if p.active:
             active_count = len([x for x in self.cfg.projects if x.active])
             if active_count <= 1:
-                messagebox.showwarning("ChatClipper", i18n.t("msg.cannot_deactivate_last"))
+                show_warning(self, "ChatClipper", i18n.t("msg.cannot_deactivate_last"), dark=self.cfg.dark_theme)
                 return
         p.active = not p.active
         self._load_projects()
@@ -687,7 +800,7 @@ class SettingsWindow(tk.Toplevel):
             self.cfg.popup_seconds = popup_sec
             self.cfg.popup_alpha = alpha_pct / 100.0
         except ValueError:
-            messagebox.showerror("ChatClipper", i18n.t("msg.check_numbers"))
+            show_warning(self, "ChatClipper", i18n.t("msg.check_numbers"), dark=self.cfg.dark_theme)
             return
         old_autostart = self.cfg.autostart
         old_tray = bool(self._snap.get("tray", self.cfg.tray_enabled))
@@ -728,6 +841,10 @@ class SettingsWindow(tk.Toplevel):
         except Exception:
             pass
         self.app_state.reload_after_settings()
+        try:
+            self.grab_release()
+        except Exception:
+            pass
         self.withdraw()
         if restart_needed:
             try:
@@ -811,12 +928,14 @@ class ProjectDialog:
     # Initialize dialog
     def __init__(self, parent, project):
         self.result = None
+        self.dark = bool(getattr(getattr(parent, "cfg", None), "dark_theme", False))
         self.win = tk.Toplevel(parent)
-        apply_icon(self.win)
+        apply_icon(self.win, dark_theme=self.dark)
         self.win.title(i18n.t("project.title"))
         self.win.geometry("560x250")
         self.win.transient(parent)
         self.win.grab_set()
+        apply_theme(self.win, self.dark)
 
         self.var_name = tk.StringVar(value=project.name if project else "")
         self.var_folder = tk.StringVar(value=project.folder if project else "")
@@ -894,18 +1013,18 @@ class ProjectDialog:
         folder = self.var_folder.get().strip()
         docx = self.var_docx.get().strip()
         if not name:
-            messagebox.showerror("ChatClipper", i18n.t("msg.name_undefined"))
+            show_warning(self.win, "ChatClipper", i18n.t("msg.name_undefined"), dark=self.dark)
             return
         if not folder:
-            messagebox.showerror("ChatClipper", i18n.t("msg.folder_required"))
+            show_warning(self.win, "ChatClipper", i18n.t("msg.folder_required"), dark=self.dark)
             return
         if not os.path.isdir(folder):
-            if not messagebox.askyesno("ChatClipper", i18n.t("msg.folder_missing")):
+            if not ask_yesno(self.win, "ChatClipper", i18n.t("msg.folder_missing"), dark=self.dark):
                 return
             try:
                 os.makedirs(folder, exist_ok=True)
             except Exception as e:
-                messagebox.showerror("ChatClipper", i18n.t("msg.folder_create_fail") + str(e))
+                show_warning(self.win, "ChatClipper", i18n.t("msg.folder_create_fail") + str(e), dark=self.dark)
                 return
         fmt = self.var_format.get() or "docx"
         if not docx.lower().endswith("." + fmt.lower()):

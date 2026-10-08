@@ -4,18 +4,25 @@ import os
 import time
 
 from logger import log
-from config import load_config, flush_config, ICON_PATH
+from config import load_config, flush_config, ICON_PATH, ICON_PATH_DARK
 from ipc_client import send_ipc_command
 from app_state import state
 import i18n
 
 
 # Build tray icon image from .ico or fallback stub
+# Picks the dark-theme icon when config has dark_theme enabled
 def make_tray_image():
     from PIL import Image, ImageDraw
-    if os.path.exists(ICON_PATH):
+    try:
+        cfg = state.config
+    except Exception:
+        cfg = None
+    dark = bool(getattr(cfg, "dark_theme", False)) if cfg is not None else False
+    path = ICON_PATH_DARK if (dark and os.path.exists(ICON_PATH_DARK)) else ICON_PATH
+    if os.path.exists(path):
         try:
-            return Image.open(ICON_PATH)
+            return Image.open(path)
         except Exception as e:
             log.exception("Cannot open .ico: %s", e)
     img = Image.new("RGBA", (64, 64), (30, 90, 200, 255))

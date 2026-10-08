@@ -2,7 +2,7 @@
 import tkinter as tk
 from tkinter import ttk
 
-from ui_helpers import center_window, apply_icon
+from ui_helpers import center_window, apply_icon, apply_theme
 import i18n
 
 
@@ -13,10 +13,12 @@ class UndoDialog:
         self.app_state = app_state
         self.candidates = candidates
         self.result = None
+        self.dark = bool(getattr(getattr(app_state, "config", None), "dark_theme", False))
         self.win = tk.Toplevel(parent)
-        apply_icon(self.win)
+        apply_icon(self.win, dark_theme=self.dark)
         self.win.title(i18n.t("undo.title"))
         self.win.geometry("420x220")
+        apply_theme(self.win, self.dark)
         self._build(source_project)
         self._center()
         self.win.deiconify()

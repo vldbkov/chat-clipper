@@ -4,6 +4,7 @@ import tkinter as tk
 from logger import log
 from config import save_config
 from ui_helpers import apply_icon
+from theme import get_palette
 
 
 # Popup project picker class
@@ -21,13 +22,16 @@ class PopupWindow:
         if self.alpha > 1.0:
             self.alpha = 1.0
         self.win = tk.Toplevel(parent)
-        apply_icon(self.win)
+        apply_icon(self.win, dark_theme=bool(getattr(self.cfg, "dark_theme", False)))
         self.win.overrideredirect(True)
         self.win.attributes("-alpha", self.alpha)
         self.win.attributes("-topmost", True)
-        self.win.configure(bg="#303030")
+        self.palette = get_palette(bool(getattr(self.cfg, "dark_theme", False)))
+        self.win.configure(bg=self.palette["bg"])
         self._paused = False
         self._after_id = None
+        self._stamp_click_x = 0
+        self._stamp_click_y = 0
         self._build()
         self._center()
         self.win.bind("<Enter>", self._on_enter)
@@ -43,9 +47,11 @@ class PopupWindow:
     # Recursively bind drag events to all child widgets
     def _bind_drag_recursive(self, widget):
         for child in widget.winfo_children():
-            child.bind("<ButtonRelease-1>", self._on_drag_end, add="+")
             if child.winfo_class() == "Button":
                 continue
+            if child.winfo_class() == "Label":
+                continue
+            child.bind("<ButtonRelease-1>", self._on_drag_end, add="+")
             child.bind("<ButtonPress-1>", self._on_drag_start)
             child.bind("<B1-Motion>", self._on_drag_move)
             self._bind_drag_recursive(child)
@@ -70,6 +76,26 @@ class PopupWindow:
         self.win.geometry(f"+{x}+{y}")
         self._save_position()
 
+    # Remember click position on PAUSE stamp to detect click vs drag
+    def _on_stamp_press(self, event):
+        self._stamp_click_x = event.x_root
+        self._stamp_click_y = event.y_root
+
+    # Release on PAUSE stamp: unpause and resume tracking
+    def _on_stamp_release(self, event):
+        try:
+            from config import save_config
+            self.app_state.paused = False
+            self.cfg.paused = False
+            save_config(self.cfg)
+            self.app_state.apply_sound()
+            log.info("Popup: PAUSE stamp clicked, tracking resumed")
+        except Exception as e:
+            log.exception("Popup: unpause error: %s", e)
+            return
+        self._render_buttons()
+        self._schedule_close()
+
     # Drag end: save position and restart the timer
     def _on_drag_end(self, event):
         self._dragging = False
@@ -86,7 +112,7 @@ class PopupWindow:
 
     # Build UI
     def _build(self):
-        self.wrap = tk.Frame(self.win, bg="#303030", padx=8, pady=8)
+        self.wrap = tk.Frame(self.win, bg=self.palette["bg"], padx=8, pady=8)
         self.wrap.pack()
         self._render_buttons()
 
@@ -110,9 +136,10 @@ class PopupWindow:
             col = idx % cols
             row_items = min(cols, total - row * cols)
             is_main = (p.name == main_name)
-            bg = "#F5C542" if is_main else "#505050"
-            fg = "#000000" if is_main else "#FFFFFF"
-            btn = tk.Button(wrap, text=p.name, bg=bg, fg=fg, activebackground="#F5D060",
+            pal = self.palette
+            bg = pal["main_bg"] if is_main else pal["btn"]
+            fg = pal["main_fg"] if is_main else pal["fg"]
+            btn = tk.Button(wrap, text=p.name, bg=bg, fg=fg, activebackground=pal["btn_hover"],
                             relief="flat", padx=12, pady=6, font=("Segoe UI", 10, "bold" if is_main else "normal"),
                             command=lambda name=p.name: self._choose(name))
             if row_items == 1 and cols > 1:
@@ -122,10 +149,13 @@ class PopupWindow:
         for c in range(cols):
             wrap.columnconfigure(c, weight=1, uniform="btn")
         if getattr(self.app_state, "paused", False):
-            stamp = tk.Label(wrap, text="PAUSE", fg="#FF2020", bg="#303030",
+            stamp = tk.Label(wrap, text="PAUSE", fg=self.palette["pause_fg"], bg=self.palette["bg"],
                              font=("Segoe UI", 14, "bold"),
                              bd=0, highlightthickness=0)
             stamp.place(relx=0.5, rely=0.5, anchor="center")
+            stamp.bind("<ButtonPress-1>", self._on_stamp_press, add="+")
+            stamp.bind("<ButtonRelease-1>", self._on_stamp_release, add="+")
+            stamp.configure(cursor="hand2")
 
     # Window placement: saved coordinates or centered
     def _center(self):

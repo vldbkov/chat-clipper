@@ -1,9 +1,12 @@
 # Copyright (©) 2026, Vladimir Baykov. All rights reserved.
 # Shared UI helpers: window centering and drag&drop attachment
 import os
+import tkinter as tk
+from tkinter import ttk
 
 from logger import log
-from config import ICON_PATH
+from config import ICON_PATH, ICON_PATH_DARK
+from theme import get_palette
 
 
 # Center a Tk window on the screen
@@ -91,11 +94,17 @@ class Tooltip:
 
 
 # Apply app icon to a Tk/Toplevel window; safe no-op when icon is missing
-def apply_icon(win) -> None:
+# icon_path: explicit path; when None, picks by dark_theme flag
+def apply_icon(win, dark_theme: bool | None = None, icon_path: str | None = None) -> None:
     try:
-        if os.path.isfile(ICON_PATH):
-            win.iconbitmap(default=ICON_PATH)
-            win.iconbitmap(ICON_PATH)
+        if icon_path is None:
+            if dark_theme and os.path.isfile(ICON_PATH_DARK):
+                icon_path = ICON_PATH_DARK
+            else:
+                icon_path = ICON_PATH
+        if os.path.isfile(icon_path):
+            win.iconbitmap(default=icon_path)
+            win.iconbitmap(icon_path)
     except Exception as e:
         log.debug("ui_helpers.apply_icon: %s", e)
 
@@ -163,3 +172,91 @@ def attach_drag_with_save(win, on_save, skip_buttons: bool = True) -> dict:
 
     bind_recursive(win)
     return state
+
+
+# Apply ttk style + tk widget colors to any Toplevel by theme
+# Used by dialogs (ProjectDialog, UndoDialog) that live in a separate root
+def apply_theme(win, dark: bool = False) -> dict:
+    pal = get_palette(dark)
+    try:
+        style = ttk.Style(win)
+        try:
+            style.theme_use("clam")
+        except Exception:
+            pass
+        style.configure(".", background=pal["bg"], foreground=pal["fg"], fieldbackground=pal["field_bg"])
+        style.configure("TFrame", background=pal["bg"])
+        style.configure("TLabel", background=pal["bg"], foreground=pal["fg"])
+        style.configure("TButton", background=pal["btn"], foreground=pal["fg"])
+        style.map("TButton", background=[("active", pal["btn_hover"])])
+        style.configure("TEntry", fieldbackground=pal["entry_bg"], foreground=pal["entry_fg"])
+        style.configure("TSpinbox", fieldbackground=pal["entry_bg"], foreground=pal["entry_fg"], background=pal["btn"])
+        style.configure("TCombobox", fieldbackground=pal["entry_bg"], foreground=pal["entry_fg"], background=pal["btn"])
+        style.map("TCombobox",
+                  fieldbackground=[("readonly", pal["entry_bg"]), ("!disabled", pal["entry_bg"])],
+                  foreground=[("readonly", pal["entry_fg"]), ("!disabled", pal["entry_fg"])],
+                  background=[("readonly", pal["btn"]), ("!disabled", pal["btn"])])
+        style.configure("TRadiobutton", background=pal["bg"], foreground=pal["fg"])
+        try:
+            win.configure(bg=pal["bg"])
+        except Exception:
+            pass
+    except Exception as e:
+        log.debug("ui_helpers.apply_theme: %s", e)
+    return pal
+
+
+# Internal: base dialog window with message and buttons
+# Returns the user's choice via result flag
+def _base_dialog(parent, title, message, dark, buttons):
+    win = tk.Toplevel(parent)
+    win.title(title)
+    win.transient(parent)
+    win.resizable(False, False)
+    apply_theme(win, dark)
+    try:
+        win.grab_set()
+    except Exception:
+        pass
+    wrap = ttk.Frame(win, padding=12)
+    wrap.pack(fill="both", expand=True)
+    ttk.Label(wrap, text=message, wraplength=420, justify="left").pack(anchor="w")
+    btns = ttk.Frame(wrap)
+    btns.pack(fill="x", pady=(10, 0))
+    result = {"value": None}
+    def _close(v):
+        result["value"] = v
+        win.destroy()
+    for label, value in buttons:
+        ttk.Button(btns, text=label, command=lambda v=value: _close(v)).pack(side="right", padx=4)
+    center_window(win)
+    try:
+        win.lift()
+        win.attributes("-topmost", True)
+        win.after(200, lambda: win.attributes("-topmost", False))
+        win.focus_force()
+    except Exception:
+        pass
+    parent.wait_window(win)
+    return result["value"]
+
+
+# Themed replacement for messagebox.showinfo
+def show_info(parent, title, message, dark=False):
+    _base_dialog(parent, title, message, dark, [("OK", True)])
+
+
+# Themed replacement for messagebox.showwarning
+def show_warning(parent, title, message, dark=False):
+    _base_dialog(parent, title, message, dark, [("OK", True)])
+
+
+# Themed replacement for messagebox.showerror
+def show_error(parent, title, message, dark=False):
+    _base_dialog(parent, title, message, dark, [("OK", True)])
+
+
+# Themed replacement for messagebox.askyesno; returns bool
+def ask_yesno(parent, title, message, dark=False, yes="OK", no="Cancel") -> bool:
+    res = _base_dialog(parent, title, message, dark, [(yes, True), (no, False)])
+    return bool(res)

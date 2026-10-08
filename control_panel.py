@@ -5,6 +5,7 @@ from config import save_config
 from ui_helpers import attach_drag_with_save, apply_icon
 from ipc_client import send_ipc_command
 from logger import log
+from theme import get_palette
 import i18n
 
 
@@ -19,9 +20,10 @@ class ControlPanel:
         self.cfg = app_state.config
         self.win = tk.Toplevel(parent)
         self.win.withdraw()
-        apply_icon(self.win)
+        apply_icon(self.win, dark_theme=bool(getattr(self.cfg, "dark_theme", False)))
+        self.palette = get_palette(bool(getattr(self.cfg, "dark_theme", False)))
         self.win.title("ChatClipper")
-        self.win.configure(bg="#303030")
+        self.win.configure(bg=self.palette["bg"])
         self.win.resizable(False, False)
         self.win.protocol("WM_DELETE_WINDOW", self._on_close)
         self._exit_after_id = None
@@ -40,26 +42,27 @@ class ControlPanel:
 
     # Build interface
     def _build(self):
-        wrap = tk.Frame(self.win, bg="#303030", padx=8, pady=8)
+        pal = self.palette
+        wrap = tk.Frame(self.win, bg=pal["bg"], padx=8, pady=8)
         wrap.pack()
         self.btn_status = tk.Button(wrap, text=i18n.t("control.status"), command=lambda: self._send("status"),
-                                    bg="#505050", fg="#FFFFFF", activebackground="#707070",
+                                    bg=pal["btn"], fg=pal["fg"], activebackground=pal["btn_hover"],
                                     relief="flat", padx=12, pady=6, font=("Segoe UI", 9))
         self.btn_status.pack(side="left", padx=3)
         self.btn_settings = tk.Button(wrap, text=i18n.t("control.settings"), command=lambda: self._send("settings"),
-                                      bg="#505050", fg="#FFFFFF", activebackground="#707070",
+                                      bg=pal["btn"], fg=pal["fg"], activebackground=pal["btn_hover"],
                                       relief="flat", padx=12, pady=6, font=("Segoe UI", 9))
         self.btn_settings.pack(side="left", padx=3)
         self.btn_undo = tk.Button(wrap, text=i18n.t("control.undo"), command=lambda: self._send("undo"),
-                                  bg="#505050", fg="#FFFFFF", activebackground="#707070",
+                                  bg=pal["btn"], fg=pal["fg"], activebackground=pal["btn_hover"],
                                   relief="flat", padx=12, pady=6, font=("Segoe UI", 9))
         self.btn_undo.pack(side="left", padx=3)
         self.btn_pause = tk.Button(wrap, text=i18n.t("control.pause"), command=lambda: self._send("toggle_pause"),
-                                   bg="#505050", fg="#FFFFFF", activebackground="#707070",
+                                   bg=pal["btn"], fg=pal["fg"], activebackground=pal["btn_hover"],
                                    relief="flat", padx=12, pady=6, font=("Segoe UI", 9))
         self.btn_pause.pack(side="left", padx=3)
         self.btn_exit = tk.Button(wrap, text=i18n.t("control.exit"),
-                                  bg="#505050", fg="#FFFFFF", activebackground="#707070",
+                                  bg=pal["btn"], fg=pal["fg"], activebackground=pal["btn_hover"],
                                   relief="flat", padx=12, pady=6, font=("Segoe UI", 9))
         self.btn_exit.pack(side="left", padx=3)
         self.btn_exit.bind("<Button-1>", self._on_exit_click)
@@ -137,9 +140,35 @@ class ControlPanel:
         except Exception:
             pass
 
-    # Periodically refresh button state
+    # Repaint panel colors when theme changes in config
+    def _refresh_theme(self):
+        dark = bool(getattr(self.cfg, "dark_theme", False))
+        new_pal = get_palette(dark)
+        if new_pal == self.palette:
+            return
+        self.palette = new_pal
+        pal = new_pal
+        try:
+            self.win.configure(bg=pal["bg"])
+        except Exception:
+            pass
+        for btn in (self.btn_status, self.btn_settings, self.btn_undo, self.btn_pause, self.btn_exit):
+            try:
+                btn.configure(bg=pal["btn"], fg=pal["fg"], activebackground=pal["btn_hover"])
+            except Exception:
+                pass
+        try:
+            for child in self.win.winfo_children():
+                child.configure(bg=pal["bg"])
+        except Exception:
+            pass
+        apply_icon(self.win, dark_theme=dark)
+        log.info("ControlPanel: theme refreshed (dark=%s)", dark)
+
+    # Periodically refresh button state and theme
     def _poll_state(self):
         self._update_pause_button()
+        self._refresh_theme()
         try:
             self.win.after(300, self._poll_state)
         except Exception:
