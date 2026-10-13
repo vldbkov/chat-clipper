@@ -1,10 +1,10 @@
-import json
 import os
 import threading
 from dataclasses import dataclass, field, asdict
 from typing import List
 
 from logger import log
+from safe_json import backup_json, atomic_write_json, read_json_with_fallback
 import i18n
 
 import sys
@@ -235,8 +235,9 @@ def load_config() -> AppConfig:
         save_config(cfg)
         return cfg
     try:
-        with open(CONFIG_PATH, "r", encoding="utf-8-sig") as f:
-            data = json.load(f)
+        data = read_json_with_fallback(CONFIG_PATH, None)
+        if data is None:
+            raise ValueError("config.json unreadable and no valid backup")
         if "locale" not in data or not data.get("locale"):
             data["locale"] = _resolve_default_locale()
         cfg = AppConfig.from_dict(data)
@@ -264,9 +265,12 @@ DEBOUNCE_SECONDS = 1.0
 # Write config.json immediately (no debounce)
 def _write_config_now(cfg: AppConfig) -> None:
     try:
-        with open(CONFIG_PATH, "w", encoding="utf-8", newline="\n") as f:
-            json.dump(cfg.to_dict(), f, ensure_ascii=False, indent=2)
-        log.info("config.json saved")
+        backup_json(CONFIG_PATH)
+        ok = atomic_write_json(CONFIG_PATH, cfg.to_dict(), ensure_ascii=False, indent=2)
+        if ok:
+            log.info("config.json saved")
+        else:
+            log.warning("config.json not saved (atomic write failed)")
     except Exception as e:
         log.exception("Error saving config.json: %s", e)
 

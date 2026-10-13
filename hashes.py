@@ -1,10 +1,10 @@
 # CRC32 ring buffer module for duplicate detection
-import json
 import os
 import zlib
 
 from logger import log
 from config import HASHES_PATH
+from safe_json import backup_json, atomic_write_json, read_json_with_fallback
 
 
 # Ring storage of CRC32 for the last accepted texts
@@ -26,8 +26,12 @@ class HashRing:
                 self.items = []
                 self._save()
                 return
-            with open(HASHES_PATH, "r", encoding="utf-8") as f:
-                data = json.load(f)
+            data = read_json_with_fallback(HASHES_PATH, None)
+            if data is None:
+                log.warning("hashes.json unreadable and no valid backup")
+                self.items = []
+                self._save()
+                return
             if isinstance(data, list):
                 self.items = [int(x) for x in data][-self.size:]
             log.info("hashes.json loaded: %d values", len(self.items))
@@ -39,9 +43,12 @@ class HashRing:
     # Save ring of hashes to hashes.json
     def _save(self) -> None:
         try:
-            with open(HASHES_PATH, "w", encoding="utf-8") as f:
-                json.dump(self.items, f)
-            self._dirty = False
+            backup_json(HASHES_PATH)
+            ok = atomic_write_json(HASHES_PATH, self.items, ensure_ascii=True, indent=None)
+            if ok:
+                self._dirty = False
+            else:
+                log.warning("hashes.json not saved (atomic write failed)")
         except Exception as e:
             log.exception("Error saving hashes.json: %s", e)
 

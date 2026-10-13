@@ -32,11 +32,11 @@ MANIFEST
 #  Usually these files are written by a python script from a template
 #  before PyInstaller builds the exe, so as to inject date/other infos into it.
 *.manifest
+!ChatClipper.spec
 
-# Build scripts and folders (never publish)
-ChatClipper.spec
-installer/
-tools/
+# Inno Setup output (installer binaries)
+installer/Output/
+*.iss.bak
 
 # Installer logs
 pip-log.txt
@@ -193,6 +193,7 @@ last_buffers.json
 logging/
 ipc_token
 chatclipper.sock
+backups/
 
 # Chat output files
 *-chat.docx
@@ -224,18 +225,3 @@ pending/
 *.dylib
 !docs/**
 !*.ico
-
-# Development-only docs (never publish)
-docs/BUILD.md
-docs/VENV.md
-
-# Development-only files (never publish)
-tests/
-pytest.ini
-PUBLISH_RULES.md
-
-# Local copies and backups
-*копия*
-*_copy*
-*.bak
-*_backup*

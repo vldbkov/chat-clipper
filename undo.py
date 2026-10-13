@@ -1,5 +1,4 @@
 # Module for remembering and undoing the last write to .docx
-import json
 import os
 import re
 
@@ -8,6 +7,7 @@ from docx import Document
 from config import LAST_BUFFERS_PATH
 from config import load_config
 from logger import log
+from safe_json import backup_json, atomic_write_json, read_json_with_fallback
 
 
 # Patterns for credentials commonly seen in copy buffers
@@ -136,8 +136,7 @@ def _load() -> dict:
     if not os.path.exists(LAST_BUFFERS_PATH):
         return {"last": None, "prev": None}
     try:
-        with open(LAST_BUFFERS_PATH, "r", encoding="utf-8") as f:
-            data = json.load(f)
+        data = read_json_with_fallback(LAST_BUFFERS_PATH, None)
         if not isinstance(data, dict):
             return {"last": None, "prev": None}
         data.setdefault("last", None)
@@ -151,7 +150,7 @@ def _load() -> dict:
 # Save last_buffers.json
 def _save(data: dict) -> None:
     try:
-        with open(LAST_BUFFERS_PATH, "w", encoding="utf-8") as f:
-            json.dump(data, f, ensure_ascii=False, indent=2)
+        backup_json(LAST_BUFFERS_PATH)
+        atomic_write_json(LAST_BUFFERS_PATH, data, ensure_ascii=False, indent=2)
     except Exception as e:
         log.exception("undo._save error: %s", e)

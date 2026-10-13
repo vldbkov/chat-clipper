@@ -218,7 +218,20 @@ class PopupWindow:
                 self._render_buttons()
                 self._schedule_close()
             else:
-                self._finish()
+                if not getattr(self.app_state, "paused", False):
+                    try:
+                        self.app_state.paused = True
+                        self.cfg.paused = True
+                        save_config(self.cfg)
+                        self.app_state.apply_sound()
+                        log.info("Status popup: PAUSE enabled by main project click")
+                    except Exception as e:
+                        log.exception("Status popup: pause error: %s", e)
+                        return
+                    self._render_buttons()
+                    self._schedule_close()
+                else:
+                    self._finish()
             return
         self.chosen = name
         log.info("Popup: project chosen '%s'", name)
