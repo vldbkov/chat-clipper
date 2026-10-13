@@ -43,6 +43,7 @@ Se acabó el copiar y pegar manual: el programa lo hace por ti.
 - Al hacer clic en un proyecto no principal en la ventana emergente, se convierte en principal silenciosamente
 - Ventana emergente de estado al inicio; marca PAUSE cuando está en pausa
 - Un solo clic en el sello PAUSE reanuda el seguimiento
+- En la ventana de estado, un clic en el botón del proyecto principal pone el seguimiento en pausa
 - Supresión de duplicados mediante anillo CRC32 (5 últimos valores)
 - Deshacer la última escritura: la elimina del .docx de origen y la mueve a otro
   proyecto; respeta undo_max_text_len y skip_secrets

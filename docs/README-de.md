@@ -45,6 +45,7 @@ erledigt das für Sie.
 - Klick auf ein Nicht-Hauptprojekt im Popup macht es still zum Hauptprojekt
 - Status-Popup beim Start; PAUSE-Stempel bei Pause
 - Einzelklick auf den PAUSE-Stempel setzt die Überwachung fort
+- Im Statusfenster pausiert ein Klick auf die Schaltfläche des Hauptprojekts die Überwachung
 - Duplikatunterdrückung über CRC32-Ring (5 letzte Werte)
 - Letzte Schreiboperation rückgängig machen: entfernt sie aus der Quell-.docx und
   verschiebt sie in ein anderes Projekt; berücksichtigt undo_max_text_len und skip_secrets

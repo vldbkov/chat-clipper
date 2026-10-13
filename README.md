@@ -44,6 +44,7 @@ file. No more manual copy-paste — the program does it for you.
 - Clicking a non-main project in the popup silently makes it main
 - Startup status popup; PAUSE stamp when paused
 - Single click on the PAUSE stamp resumes tracking
+- In the status window, a click on the main project button pauses tracking
 - Duplicate suppression via CRC32 ring (5 last values)
 - Undo last write: removes it from source .docx and moves it to another
   project; respects undo_max_text_len and skip_secrets
