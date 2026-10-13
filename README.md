@@ -1,6 +1,6 @@
 # ChatClipper
 
-[![License](https://img.shields.io/badge/license-MIT-yellow)](LICENSE) [![Python](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/) [![Platform](https://img.shields.io/badge/platform-windows-0078D6)](https://www.microsoft.com/windows) [![Kaspersky](https://img.shields.io/badge/Kaspersky-OpenTIP%20clear-brightgreen)](https://opentip.kaspersky.com/089489EFE50FC601A0E35892849D1A60B53839C289C857B9031E7BCAAABC1225)
+[![License](https://img.shields.io/badge/license-MIT-yellow)](LICENSE) [![Python](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/) [![Platform](https://img.shields.io/badge/platform-windows-0078D6)](https://www.microsoft.com/windows) [![VirusTotal](https://img.shields.io/badge/VirusTotal-clean-brightgreen)](https://www.virustotal.com/gui/file/c4d0c9cbc143a57b0667f81992f6536621be3ec77c7b049db253853117528a56)
 
 **English** · [Русский](docs/README-ru.md) · [Deutsch](docs/README-de.md) · [Español](docs/README-es.md) · [日本語](docs/README-ja.md)
 
@@ -9,7 +9,7 @@ Chrome (Copy button in web chats, e.g. DeepSeek) and appends the text to
 the .docx / .md / .txt file of the selected project.
 Works on Windows; Linux / WSL / macOS support is experimental.
 
-**Safety note:** The Windows installer is verified by Kaspersky OpenTIP.
+**Safety note:** The Windows installer is verified by VirusTotal.
 No threats were detected. The source code is open and auditable.
 
 ---

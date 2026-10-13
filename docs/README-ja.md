@@ -1,6 +1,6 @@
 # ChatClipper
 
-[![License](https://img.shields.io/badge/license-MIT-yellow)](../LICENSE) [![Python](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/) [![Platform](https://img.shields.io/badge/platform-windows-0078D6)](https://www.microsoft.com/windows) [![Kaspersky](https://img.shields.io/badge/Kaspersky-OpenTIP%20clear-brightgreen)](https://opentip.kaspersky.com/089489EFE50FC601A0E35892849D1A60B53839C289C857B9031E7BCAAABC1225)
+[![License](https://img.shields.io/badge/license-MIT-yellow)](../LICENSE) [![Python](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/) [![Platform](https://img.shields.io/badge/platform-windows-0078D6)](https://www.microsoft.com/windows) [![VirusTotal](https://img.shields.io/badge/VirusTotal-clean-brightgreen)](https://www.virustotal.com/gui/file/c4d0c9cbc143a57b0667f81992f6536621be3ec77c7b049db253853117528a56)
 
 **日本語** · [English](../README.md) · [Русский](README-ru.md) · [Deutsch](README-de.md) · [Español](README-es.md)
 
@@ -9,7 +9,7 @@ Chrome で左クリックした後（Web チャットの「コピー」ボタン
 テキストを追記するデスクトップ ユーティリティです。
 Windows で動作します。Linux / WSL / macOS のサポートは実験的です。
 
-**安全性:** Windows インストーラーは Kaspersky OpenTIP で検証済みです。脅威は検出されませんでした。ソースコードは公開されており、監査可能です。
+**安全性:** Windows インストーラーは VirusTotal で検証済みです。脅威は検出されませんでした。ソースコードは公開されており、監査可能です。
 
 ---
 
