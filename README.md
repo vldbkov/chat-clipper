@@ -1,11 +1,11 @@
 # ChatClipper
 
-[![License](https://img.shields.io/badge/license-MIT-yellow)](LICENSE) [![Python](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/) [![Platform](https://img.shields.io/badge/platform-windows-0078D6)](https://www.microsoft.com/windows) [![VirusTotal](https://img.shields.io/badge/VirusTotal-clean-brightgreen)](https://www.virustotal.com/gui/file/c4d0c9cbc143a57b0667f81992f6536621be3ec77c7b049db253853117528a56)
+[![License](https://img.shields.io/badge/license-MIT-yellow)](LICENSE) [![Python](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/) [![Platform](https://img.shields.io/badge/platform-windows-0078D6)](https://www.microsoft.com/windows) [![VirusTotal](https://img.shields.io/badge/VirusTotal-clean-brightgreen)](https://www.virustotal.com/gui/file/17d6cfce17bf2bf63276c47f55f9423fe53a67b50991cd77f60e95c04d63e97f)
 
 **English** · [Русский](docs/README-ru.md) · [Deutsch](docs/README-de.md) · [Español](docs/README-es.md) · [日本語](docs/README-ja.md)
 
-Desktop utility that watches the clipboard after a single LMB click in
-Chrome (Copy button in web chats, e.g. DeepSeek) and appends the text to
+Desktop utility that watches the clipboard and appends the copied text
+from Chromium browsers and Electron-based desktop AI apps to
 the .docx / .md / .txt file of the selected project.
 Works on Windows; Linux / WSL / macOS support is experimental.
 
@@ -20,7 +20,7 @@ ChatClipper is a lightweight utility that automatically saves your chats
 with AI assistants (DeepSeek, ChatGPT and similar) into a single project
 file. No more manual copy-paste — the program does it for you.
 
-- Watches the clipboard and detects Copy in web chats.
+- Watches the clipboard and detects Copy in Chromium browsers and Electron-based desktop AI apps.
 - Appends the copied text to the project file (.docx / .md / .txt).
 - Supports multiple projects with one main project.
 - Works in the background — lives in the system tray.
@@ -33,7 +33,8 @@ file. No more manual copy-paste — the program does it for you.
 
 ## ✨ Features
 
-- Clipboard watcher on LMB click in any Chromium browser (Chrome, Opera, Edge, Brave, Vivaldi)
+- Clipboard watcher on LMB click in Chromium browsers and Electron-based desktop AI apps
+- Detects copy via the Copy button, mouse click, or Ctrl+C
 - Append text to project files: docx, md, txt
 - Markdown parsing (mistune): headings, bold, italic, inline code,
   code blocks, lists, quotes, tables
@@ -69,7 +70,7 @@ file. No more manual copy-paste — the program does it for you.
 - Windows 10/11 (Linux / macOS — experimental)
 - Python 3.10+
 - LibreOffice or MS Word for editing .docx
-- A Chromium-based browser as clipboard source (Chrome, Opera, Edge, Brave, Vivaldi)
+- A Chromium-based browser or an Electron-based desktop AI app as clipboard source
 - Optional: Pandoc in PATH for Markdown → docx
 ---
 
@@ -106,7 +107,7 @@ On first launch ChatClipper automatically creates a default project at
 `~/ChatClipper` (your user home folder) with an empty Word file that
 already contains a heading. No setup needed — just start copying.
 
-1. Open a chat with an AI (DeepSeek, ChatGPT, Qwen, GLM and similar) in a Chromium-based browser.
+1. Open a chat with an AI (DeepSeek, ChatGPT, Qwen, GLM and similar) in a Chromium-based browser or an Electron-based desktop AI app.
 2. Copy the reply in one of two ways:
    - click the **Copy** button shown in the chat UI (recommended — it
      also preserves HTML formatting), or
@@ -231,7 +232,7 @@ If you did edit it manually, skip undo and copy the text again.
 
 | Problem | Solution |
 |---------|----------|
-| Text is not saved | Click the **Copy** button in the chat, or select text and press **Ctrl+C**; make sure the Chromium browser is the active window |
+| Text is not saved | Click the **Copy** button in the chat, or select text and press **Ctrl+C**; make sure a Chromium browser or an Electron-based desktop AI app is the active window |
 | File is not updated | Wait ~5 s, or close and reopen the file (buffered writes) |
 | Ticking sound bothers me | Disable it in Settings → Sound, or pick a quieter .wav |
 | Tray icon not visible | Check Windows tray settings; ensure ChatClipper is running |

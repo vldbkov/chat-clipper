@@ -1,12 +1,12 @@
 # ChatClipper
 
-[![License](https://img.shields.io/badge/license-MIT-yellow)](../LICENSE) [![Python](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/) [![Platform](https://img.shields.io/badge/platform-windows-0078D6)](https://www.microsoft.com/windows) [![VirusTotal](https://img.shields.io/badge/VirusTotal-clean-brightgreen)](https://www.virustotal.com/gui/file/c4d0c9cbc143a57b0667f81992f6536621be3ec77c7b049db253853117528a56)
+[![License](https://img.shields.io/badge/license-MIT-yellow)](../LICENSE) [![Python](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/) [![Platform](https://img.shields.io/badge/platform-windows-0078D6)](https://www.microsoft.com/windows) [![VirusTotal](https://img.shields.io/badge/VirusTotal-clean-brightgreen)](https://www.virustotal.com/gui/file/17d6cfce17bf2bf63276c47f55f9423fe53a67b50991cd77f60e95c04d63e97f)
 
 **日本語** · [English](../README.md) · [Русский](README-ru.md) · [Deutsch](README-de.md) · [Español](README-es.md)
 
-Chrome で左クリックした後（Web チャットの「コピー」ボタン、例：DeepSeek）の
-クリップボードを監視し、選択したプロジェクトの .docx / .md / .txt ファイルに
-テキストを追記するデスクトップ ユーティリティです。
+クリップボードを監視し、Chromium ブラウザや Electron ベースの AI デスクトップ アプリから
+コピーしたテキストを、選択したプロジェクトの .docx / .md / .txt ファイルに
+追記するデスクトップ ユーティリティです。
 Windows で動作します。Linux / WSL / macOS のサポートは実験的です。
 
 **安全性:** Windows インストーラーは VirusTotal で検証済みです。脅威は検出されませんでした。ソースコードは公開されており、監査可能です。
@@ -19,7 +19,7 @@ ChatClipper は、AI アシスタント（DeepSeek、ChatGPT など）とのチ�
 1 つのプロジェクト ファイルに自動保存する軽量ユーティリティです。
 手動のコピー＆ペーストはもう不要です。プログラムが代わりに行います。
 
-- クリップボードを監視し、Web チャットの「コピー」を検出します。
+- クリップボードを監視し、Chromium ブラウザや Electron ベースの AI デスクトップ アプリでの「コピー」を検出します。
 - コピーされたテキストをプロジェクト ファイル（.docx / .md / .txt）に追記します。
 - 複数のプロジェクトを 1 つのメイン プロジェクトでサポートします。
 - バックグラウンドで動作し、システム トレイに常駐します。
@@ -32,7 +32,8 @@ ChatClipper は、AI アシスタント（DeepSeek、ChatGPT など）とのチ�
 
 ## ✨ 機能
 
-- 任意の Chromium ブラウザ（Chrome、Opera、Edge、Brave、Vivaldi）での左クリックによるクリップボード監視
+- Chromium ブラウザや Electron ベースの AI デスクトップ アプリでの左クリックによるクリップボード監視
+- 「コピー」ボタン、マウス クリック、または Ctrl+C によるコピーを検出
 - プロジェクト ファイルへのテキスト追記：docx、md、txt
 - Markdown 解析（mistune）：見出し、太字、斜体、インライン コード、
   コード ブロック、リスト、引用、表
@@ -68,7 +69,7 @@ ChatClipper は、AI アシスタント（DeepSeek、ChatGPT など）とのチ�
 - Windows 10/11（Linux / macOS — 実験的）
 - Python 3.10+
 - .docx を編集するための LibreOffice または MS Word
-- クリップボード ソースとしての Chromium ブラウザ（Chrome、Opera、Edge、Brave、Vivaldi）
+- クリップボード ソースとしての Chromium ブラウザまたは Electron ベースの AI デスクトップ アプリ
 - オプション：Markdown → docx 用の Pandoc（PATH 内）
 ---
 
@@ -106,7 +107,7 @@ Python のインストールは不要です。
 空の Word ファイルを用意します。設定は不要で、すぐにコピーを
 始められます。
 
-1. Chromium ブラウザで AI チャット（DeepSeek、ChatGPT、Qwen、GLM など）を開きます。
+1. Chromium ブラウザまたは Electron ベースの AI デスクトップ アプリで AI チャット（DeepSeek、ChatGPT、Qwen、GLM など）を開きます。
 2. 返信を次のいずれかの方法でコピーします：
    - チャット UI の **コピー** ボタンをクリック（推奨 — HTML の
      書式が保持されます）、または
@@ -226,7 +227,7 @@ ChatClipper は最後の書き込みで追加した段落数を記憶してお�
 
 | 問題 | 解決策 |
 |---------|----------|
-| テキストが保存されない | チャットの **コピー** ボタンをクリックするか、テキストを選択して **Ctrl+C** を押してください。Chromium ブラウザがアクティブ ウィンドウであることを確認してください |
+| テキストが保存されない | チャットの **コピー** ボタンをクリックするか、テキストを選択して **Ctrl+C** を押してください。Chromium ブラウザまたは Electron ベースの AI デスクトップ アプリがアクティブ ウィンドウであることを確認してください |
 | カチカチ音が気になる | 設定 → サウンド で無効にするか、より静かな .wav を選択してください |
 | ファイルが更新されない | 約 5 秒待つか、ファイルを閉じて再度開いてください（バッファ付き書き込み） |
 | トレイ アイコンが見えない | Windows のトレイ設定を確認し、ChatClipper が実行中であることを確認してください |

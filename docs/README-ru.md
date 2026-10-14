@@ -1,11 +1,11 @@
 # ChatClipper
 
-[![License](https://img.shields.io/badge/license-MIT-yellow)](../LICENSE) [![Python](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/) [![Platform](https://img.shields.io/badge/platform-windows-0078D6)](https://www.microsoft.com/windows) [![VirusTotal](https://img.shields.io/badge/VirusTotal-clean-brightgreen)](https://www.virustotal.com/gui/file/c4d0c9cbc143a57b0667f81992f6536621be3ec77c7b049db253853117528a56)
+[![License](https://img.shields.io/badge/license-MIT-yellow)](../LICENSE) [![Python](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/) [![Platform](https://img.shields.io/badge/platform-windows-0078D6)](https://www.microsoft.com/windows) [![VirusTotal](https://img.shields.io/badge/VirusTotal-clean-brightgreen)](https://www.virustotal.com/gui/file/17d6cfce17bf2bf63276c47f55f9423fe53a67b50991cd77f60e95c04d63e97f)
 
 **Русский** · [English](../README.md) · [Deutsch](README-de.md) · [Español](README-es.md) · [日本語](README-ja.md)
 
-Настольная утилита, которая следит за буфером обмена после одного клика ЛКМ в
-Chrome (кнопка «Копировать» в веб-чатах, например DeepSeek) и добавляет текст в
+Настольная утилита, которая следит за буфером обмена и добавляет скопированный
+текст из Chromium-браузеров и Electron-приложений с ИИ в
 файл .docx / .md / .txt выбранного проекта.
 Работает на Windows; поддержка Linux / WSL / macOS экспериментальная.
 
@@ -19,7 +19,7 @@ ChatClipper — лёгкая утилита, которая автоматиче
 с ИИ-ассистентами (DeepSeek, ChatGPT и подобными) в один файл проекта.
 Больше не нужно вручную копировать и вставлять — программа делает это за вас.
 
-- Следит за буфером обмена и определяет «Копировать» в веб-чатах.
+- Следит за буфером обмена и определяет «Копировать» в Chromium-браузерах и Electron-приложениях с ИИ.
 - Добавляет скопированный текст в файл проекта (.docx / .md / .txt).
 - Поддерживает несколько проектов с одним основным.
 - Работает в фоне — живёт в системном трее.
@@ -32,7 +32,8 @@ ChatClipper — лёгкая утилита, которая автоматиче
 
 ## ✨ Возможности
 
-- Наблюдатель буфера обмена по клику ЛКМ в любом Chromium-браузере (Chrome, Opera, Edge, Brave, Vivaldi)
+- Наблюдатель буфера обмена по клику ЛКМ в Chromium-браузерах и Electron-приложениях с ИИ
+- Распознаёт копирование кнопкой «Копировать», кликом мыши или Ctrl+C
 - Добавление текста в файлы проектов: docx, md, txt
 - Разбор Markdown (mistune): заголовки, полужирный, курсив, встроенный код,
   блоки кода, списки, цитаты, таблицы
@@ -68,7 +69,7 @@ ChatClipper — лёгкая утилита, которая автоматиче
 - Windows 10/11 (Linux / macOS — экспериментально)
 - Python 3.10+
 - LibreOffice или MS Word для редактирования .docx
-- Chromium-браузер как источник буфера обмена (Chrome, Opera, Edge, Brave, Vivaldi)
+- Chromium-браузер или Electron-приложение с ИИ как источник буфера обмена
 - Необязательно: Pandoc в PATH для Markdown → docx
 ---
 
@@ -105,7 +106,7 @@ Python устанавливать не нужно.
 `~/ChatClipper` (домашняя папка пользователя) с пустым файлом Word,
 в котором уже есть заголовок. Настройка не требуется — можно сразу копировать.
 
-1. Откройте чат с ИИ (DeepSeek, ChatGPT, Qwen, GLM и подобные) в Chromium-браузере.
+1. Откройте чат с ИИ (DeepSeek, ChatGPT, Qwen, GLM и подобные) в Chromium-браузере или Electron-приложении с ИИ.
 2. Скопируйте ответ одним из двух способов:
    - нажмите кнопку **Копировать** в интерфейсе чата (рекомендуется —
      так сохраняется HTML-форматирование), или
@@ -224,7 +225,7 @@ ChatClipper запоминает, сколько абзацев он добав�
 
 | Проблема | Решение |
 |---------|----------|
-| Текст не сохраняется | Нажмите кнопку **Копировать** в чате или выделите текст и нажмите **Ctrl+C**; убедитесь, что Chromium-браузер — активное окно |
+| Текст не сохраняется | Нажмите кнопку **Копировать** в чате или выделите текст и нажмите **Ctrl+C**; убедитесь, что Chromium-браузер или Electron-приложение с ИИ — активное окно |
 | Мешает тиканье | Отключите в Настройки → Sound, либо выберите более тихий .wav |
 | Файл не обновляется | Подождите ~5 с или закройте и откройте файл (буферизованная запись) |
 | Значок в трее не виден | Проверьте настройки трея Windows; убедитесь, что ChatClipper запущен |

@@ -1,6 +1,6 @@
 # Release notes for ChatClipper
 
-[![License](https://img.shields.io/badge/license-MIT-yellow)](LICENSE) [![Python](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/) [![Platform](https://img.shields.io/badge/platform-windows-0078D6)](https://www.microsoft.com/windows) [![VirusTotal](https://img.shields.io/badge/VirusTotal-clean-brightgreen)](https://www.virustotal.com/gui/file/c4d0c9cbc143a57b0667f81992f6536621be3ec77c7b049db253853117528a56)
+[![License](https://img.shields.io/badge/license-MIT-yellow)](LICENSE) [![Python](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/) [![Platform](https://img.shields.io/badge/platform-windows-0078D6)](https://www.microsoft.com/windows) [![VirusTotal](https://img.shields.io/badge/VirusTotal-clean-brightgreen)](https://www.virustotal.com/gui/file/17d6cfce17bf2bf63276c47f55f9423fe53a67b50991cd77f60e95c04d63e97f)
 
 ---
 
@@ -16,7 +16,8 @@ First public release of ChatClipper — a clipboard watcher for AI web chats on 
 
 ### ✨ Highlights
 
-- Watches clipboard after Copy in any Chromium browser (Chrome, Opera, Edge, Brave, Vivaldi)
+- Watches clipboard after Copy in Chromium browsers and Electron-based desktop AI apps
+- Detects copy via the Copy button, mouse click, or Ctrl+C
 - Appends text to project files: .docx / .md / .txt
 - Markdown parsing via mistune, optional Pandoc
 - Multiple projects with one main project; sorted list (main, active, inactive)
@@ -38,7 +39,7 @@ First public release of ChatClipper — a clipboard watcher for AI web chats on 
 ### 🛡 Safety
 
 - The installer is verified by VirusTotal. No threats were detected.
-- Report: https://www.virustotal.com/gui/file/c4d0c9cbc143a57b0667f81992f6536621be3ec77c7b049db253853117528a56
+- Report: https://www.virustotal.com/gui/file/17d6cfce17bf2bf63276c47f55f9423fe53a67b50991cd77f60e95c04d63e97f
 - Source code is open and auditable: https://github.com/vldbkov/chat-clipper
 
 ### ⚠️ Known limitations

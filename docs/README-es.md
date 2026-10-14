@@ -1,11 +1,11 @@
 # ChatClipper
 
-[![License](https://img.shields.io/badge/license-MIT-yellow)](../LICENSE) [![Python](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/) [![Platform](https://img.shields.io/badge/platform-windows-0078D6)](https://www.microsoft.com/windows) [![VirusTotal](https://img.shields.io/badge/VirusTotal-clean-brightgreen)](https://www.virustotal.com/gui/file/c4d0c9cbc143a57b0667f81992f6536621be3ec77c7b049db253853117528a56)
+[![License](https://img.shields.io/badge/license-MIT-yellow)](../LICENSE) [![Python](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/) [![Platform](https://img.shields.io/badge/platform-windows-0078D6)](https://www.microsoft.com/windows) [![VirusTotal](https://img.shields.io/badge/VirusTotal-clean-brightgreen)](https://www.virustotal.com/gui/file/17d6cfce17bf2bf63276c47f55f9423fe53a67b50991cd77f60e95c04d63e97f)
 
 **Español** · [English](../README.md) · [Русский](README-ru.md) · [Deutsch](README-de.md) · [日本語](README-ja.md)
 
-Utilidad de escritorio que vigila el portapapeles después de un solo clic con el botón
-izquierdo en Chrome (botón Copiar en chats web, p. ej. DeepSeek) y añade el texto al
+Utilidad de escritorio que vigila el portapapeles y añade el texto copiado
+desde navegadores Chromium y apps de escritorio de IA basadas en Electron al
 archivo .docx / .md / .txt del proyecto seleccionado.
 Funciona en Windows; la compatibilidad con Linux / WSL / macOS es experimental.
 
@@ -19,7 +19,7 @@ ChatClipper es una utilidad ligera que guarda automáticamente tus chats
 con asistentes de IA (DeepSeek, ChatGPT y similares) en un único archivo de proyecto.
 Se acabó el copiar y pegar manual: el programa lo hace por ti.
 
-- Vigila el portapapeles y detecta Copiar en chats web.
+- Vigila el portapapeles y detecta Copiar en navegadores Chromium y apps de escritorio de IA basadas en Electron.
 - Añade el texto copiado al archivo del proyecto (.docx / .md / .txt).
 - Admite varios proyectos con un proyecto principal.
 - Funciona en segundo plano: vive en la bandeja del sistema.
@@ -32,7 +32,8 @@ Se acabó el copiar y pegar manual: el programa lo hace por ti.
 
 ## ✨ Características
 
-- Vigilante del portapapeles al hacer clic con el botón izquierdo en cualquier navegador Chromium (Chrome, Opera, Edge, Brave, Vivaldi)
+- Vigilante del portapapeles al hacer clic con el botón izquierdo en navegadores Chromium y apps de escritorio de IA basadas en Electron
+- Detecta copiar mediante el botón Copiar, clic del ratón o Ctrl+C
 - Añadir texto a archivos de proyecto: docx, md, txt
 - Análisis de Markdown (mistune): encabezados, negrita, cursiva, código en línea,
   bloques de código, listas, citas, tablas
@@ -68,7 +69,7 @@ Se acabó el copiar y pegar manual: el programa lo hace por ti.
 - Windows 10/11 (Linux / macOS — experimental)
 - Python 3.10+
 - LibreOffice o MS Word para editar .docx
-- Navegador Chromium como fuente del portapapeles (Chrome, Opera, Edge, Brave, Vivaldi)
+- Navegador Chromium o app de escritorio de IA basada en Electron como fuente del portapapeles
 - Opcional: Pandoc en PATH para Markdown → docx
 ---
 
@@ -106,7 +107,7 @@ en `~/ChatClipper` (carpeta personal del usuario) con un archivo Word
 vacío que ya contiene un encabezado. No hace falta configurar nada —
 puedes empezar a copiar de inmediato.
 
-1. Abre un chat con IA (DeepSeek, ChatGPT, Qwen, GLM y similares) en un navegador Chromium.
+1. Abre un chat con IA (DeepSeek, ChatGPT, Qwen, GLM y similares) en un navegador Chromium o en una app de escritorio de IA basada en Electron.
 2. Copia la respuesta de una de dos formas:
    - haz clic en el botón **Copiar** de la interfaz del chat (recomendado
      — así se conserva el formato HTML), o
@@ -226,7 +227,7 @@ Si lo editaste manualmente, omite deshacer y copia el texto de nuevo.
 
 | Problema | Solución |
 |---------|----------|
-| El texto no se guarda | Haz clic en el botón **Copiar** del chat o selecciona el texto y pulsa **Ctrl+C**; asegúrate de que el navegador Chromium sea la ventana activa |
+| El texto no se guarda | Haz clic en el botón **Copiar** del chat o selecciona el texto y pulsa **Ctrl+C**; asegúrate de que el navegador Chromium o la app de escritorio de IA basada en Electron sea la ventana activa |
 | Molesta el tic-tac | Desactívalo en Configuración → Sonido, o elige un .wav más silencioso |
 | El archivo no se actualiza | Espera ~5 s, o cierra y vuelve a abrir el archivo (escrituras en búfer) |
 | El icono de bandeja no se ve | Revisa la configuración de bandeja de Windows; asegúrate de que ChatClipper esté en ejecución |

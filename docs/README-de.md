@@ -1,12 +1,12 @@
 # ChatClipper
 
-[![License](https://img.shields.io/badge/license-MIT-yellow)](../LICENSE) [![Python](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/) [![Platform](https://img.shields.io/badge/platform-windows-0078D6)](https://www.microsoft.com/windows) [![VirusTotal](https://img.shields.io/badge/VirusTotal-clean-brightgreen)](https://www.virustotal.com/gui/file/c4d0c9cbc143a57b0667f81992f6536621be3ec77c7b049db253853117528a56)
+[![License](https://img.shields.io/badge/license-MIT-yellow)](../LICENSE) [![Python](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/) [![Platform](https://img.shields.io/badge/platform-windows-0078D6)](https://www.microsoft.com/windows) [![VirusTotal](https://img.shields.io/badge/VirusTotal-clean-brightgreen)](https://www.virustotal.com/gui/file/17d6cfce17bf2bf63276c47f55f9423fe53a67b50991cd77f60e95c04d63e97f)
 
 **Deutsch** · [English](../README.md) · [Русский](README-ru.md) · [Español](README-es.md) · [日本語](README-ja.md)
 
-Desktop-Dienstprogramm, das die Zwischenablage nach einem einzelnen Linksklick in
-Chrome beobachtet (Schaltfläche „Kopieren“ in Web-Chats, z. B. DeepSeek) und den Text
-an die Datei .docx / .md / .txt des ausgewählten Projekts anhängt.
+Desktop-Dienstprogramm, das die Zwischenablage überwacht und den kopierten Text
+aus Chromium-Browsern und Electron-basierten KI-Desktop-Apps an
+die Datei .docx / .md / .txt des ausgewählten Projekts anhängt.
 Läuft unter Windows; Linux-/WSL-/macOS-Unterstützung ist experimentell.
 
 **Sicherheit:** Der Windows-Installer wurde von VirusTotal geprüft. Keine Bedrohungen gefunden. Der Quellcode ist offen und überprüfbar.
@@ -20,7 +20,7 @@ mit KI-Assistenten (DeepSeek, ChatGPT und ähnliche) automatisch in einer einzig
 Projektdatei speichert. Kein manuelles Kopieren und Einfügen mehr — das Programm
 erledigt das für Sie.
 
-- Beobachtet die Zwischenablage und erkennt „Kopieren“ in Web-Chats.
+- Beobachtet die Zwischenablage und erkennt „Kopieren“ in Chromium-Browsern und Electron-basierten KI-Desktop-Apps.
 - Hängt den kopierten Text an die Projektdatei an (.docx / .md / .txt).
 - Unterstützt mehrere Projekte mit einem Hauptprojekt.
 - Läuft im Hintergrund — lebt im System-Tray.
@@ -34,7 +34,8 @@ erledigt das für Sie.
 
 ## ✨ Funktionen
 
-- Zwischenablage-Watcher bei Linksklick in jedem Chromium-Browser (Chrome, Opera, Edge, Brave, Vivaldi)
+- Zwischenablage-Watcher bei Linksklick in Chromium-Browsern und Electron-basierten KI-Desktop-Apps
+- Erkennt Kopieren über die Schaltfläche „Kopieren“, Mausklick oder Strg+C
 - Text an Projektdateien anhängen: docx, md, txt
 - Markdown-Parsing (mistune): Überschriften, fett, kursiv, Inline-Code,
   Codeblöcke, Listen, Zitate, Tabellen
@@ -70,7 +71,7 @@ erledigt das für Sie.
 - Windows 10/11 (Linux / macOS — experimentell)
 - Python 3.10+
 - LibreOffice oder MS Word zum Bearbeiten von .docx
-- Chromium-Browser als Zwischenablagequelle (Chrome, Opera, Edge, Brave, Vivaldi)
+- Chromium-Browser oder Electron-basierte KI-Desktop-App als Zwischenablagequelle
 - Optional: Pandoc im PATH für Markdown → docx
 ---
 
@@ -108,7 +109,7 @@ Ordner `~/ChatClipper` (Benutzer-Home) mit einer leeren Word-Datei an,
 die bereits eine Überschrift enthält. Keine Konfiguration nötig —
 sofort loslegen.
 
-1. Öffnen Sie einen KI-Chat (DeepSeek, ChatGPT, Qwen, GLM und ähnliche) in einem Chromium-Browser.
+1. Öffnen Sie einen KI-Chat (DeepSeek, ChatGPT, Qwen, GLM und ähnliche) in einem Chromium-Browser oder einer Electron-basierten KI-Desktop-App.
 2. Kopieren Sie die Antwort auf eine von zwei Arten:
    - Klicken Sie die Schaltfläche **Kopieren** in der Chat-Oberfläche
      (empfohlen — so bleibt die HTML-Formatierung erhalten), oder
@@ -228,7 +229,7 @@ Wenn Sie sie manuell bearbeitet haben, überspringen Sie Undo und kopieren Sie d
 
 | Problem | Lösung |
 |---------|----------|
-| Text wird nicht gespeichert | Klicken Sie die Schaltfläche **Kopieren** im Chat oder markieren Sie den Text und drücken Sie **Strg+C**; der Chromium-Browser muss das aktive Fenster sein |
+| Text wird nicht gespeichert | Klicken Sie die Schaltfläche **Kopieren** im Chat oder markieren Sie den Text und drücken Sie **Strg+C**; der Chromium-Browser oder die Electron-basierte KI-Desktop-App muss das aktive Fenster sein |
 | Tickgeräusch stört | Deaktivieren Sie es unter Einstellungen → Sound, oder wählen Sie eine leisere .wav |
 | Datei wird nicht aktualisiert | Warten Sie ~5 s, oder schließen und öffnen Sie die Datei (gepufferte Schreibvorgänge) |
 | Tray-Symbol nicht sichtbar | Prüfen Sie die Windows-Tray-Einstellungen; stellen Sie sicher, dass ChatClipper läuft |
