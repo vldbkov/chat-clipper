@@ -1,6 +1,6 @@
 # Release notes for ChatClipper
 
-[![License](https://img.shields.io/badge/license-MIT-yellow)](LICENSE) [![Python](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/) [![Platform](https://img.shields.io/badge/platform-windows-0078D6)](https://www.microsoft.com/windows) [![VirusTotal](https://img.shields.io/badge/VirusTotal-clean-brightgreen)](https://www.virustotal.com/gui/file/17d6cfce17bf2bf63276c47f55f9423fe53a67b50991cd77f60e95c04d63e97f)
+[![License](https://img.shields.io/badge/license-MIT-yellow)](LICENSE) [![Python](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/) [![Platform](https://img.shields.io/badge/platform-windows-0078D6)](https://www.microsoft.com/windows) [![VirusTotal](https://img.shields.io/badge/VirusTotal-clean-brightgreen)](https://github.com/vldbkov/chat-clipper/blob/main/README.md)
 
 ---
 
